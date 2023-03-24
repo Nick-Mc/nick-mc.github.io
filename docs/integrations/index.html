@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-    <title>Ghost - Ghost</title>
+    <title>Setting up apps and custom integrations</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="HandheldFriendly" content="True" />
@@ -17,40 +17,83 @@
 
     <link rel="stylesheet" type="text/css" href="/assets/built/screen.css?v=7e1cc806ef" />
 
-    <meta name="description" content="You can delete this user to remove all the welcome posts" />
-    <link rel="canonical" href="https://nick-mc.github.io/author/ghost/" />
+    <meta name="description" content="Work with all your favorite apps and tools or create your own custom integrations using the Ghost API." />
+    <link rel="canonical" href="https://nick-mc.github.io/integrations/" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
     
     <meta property="og:site_name" content="Ghost" />
-    <meta property="og:type" content="profile" />
-    <meta property="og:title" content="Ghost - Ghost" />
-    <meta property="og:description" content="You can delete this user to remove all the welcome posts" />
-    <meta property="og:url" content="https://nick-mc.github.io/author/ghost/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Setting up apps and custom integrations" />
+    <meta property="og:description" content="Work with all your favorite apps and tools or create your own custom integrations using the Ghost API." />
+    <meta property="og:url" content="https://nick-mc.github.io/integrations/" />
+    <meta property="og:image" content="https://static.ghost.org/v4.0.0/images/app-integrations.png" />
+    <meta property="article:published_time" content="2023-03-24T16:17:08.000Z" />
+    <meta property="article:modified_time" content="2023-03-24T16:17:08.000Z" />
+    <meta property="article:tag" content="Getting Started" />
+    
     <meta property="article:publisher" content="https://www.facebook.com/ghost" />
     <meta property="article:author" content="https://www.facebook.com/ghost" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Ghost - Ghost" />
-    <meta name="twitter:description" content="You can delete this user to remove all the welcome posts" />
-    <meta name="twitter:url" content="https://nick-mc.github.io/author/ghost/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Setting up apps and custom integrations" />
+    <meta name="twitter:description" content="Work with all your favorite apps and tools or create your own custom integrations using the Ghost API." />
+    <meta name="twitter:url" content="https://nick-mc.github.io/integrations/" />
+    <meta name="twitter:image" content="https://static.ghost.org/v4.0.0/images/app-integrations.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Ghost" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Getting Started" />
     <meta name="twitter:site" content="@ghost" />
     <meta name="twitter:creator" content="ghost" />
+    <meta property="og:image:width" content="2000" />
+    <meta property="og:image:height" content="1210" />
     
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "sameAs": [
-        "https://ghost.org",
-        "https://www.facebook.com/ghost",
-        "https://twitter.com/ghost"
-    ],
-    "name": "Ghost",
-    "url": "https://nick-mc.github.io/author/ghost/",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Ghost",
+        "url": "https://nick-mc.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://nick-mc.github.io/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Ghost",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://static.ghost.org/v4.0.0/images/ghost-user.png",
+            "width": 400,
+            "height": 400
+        },
+        "url": "https://nick-mc.github.io/author/ghost/",
+        "sameAs": [
+            "https://ghost.org",
+            "https://www.facebook.com/ghost",
+            "https://twitter.com/ghost"
+        ]
+    },
+    "headline": "Setting up apps and custom integrations",
+    "url": "https://nick-mc.github.io/integrations/",
+    "datePublished": "2023-03-24T16:17:08.000Z",
+    "dateModified": "2023-03-24T16:17:08.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://static.ghost.org/v4.0.0/images/app-integrations.png",
+        "width": 2000,
+        "height": 1210
+    },
+    "keywords": "Getting Started",
+    "description": "Work with all your favorite apps and tools or create your own custom integrations using the Ghost API.",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://nick-mc.github.io/"
-    },
-    "description": "You can delete this user to remove all the welcome posts"
+    }
 }
     </script>
 
@@ -124,7 +167,7 @@
     <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=7e1cc806ef">
 
 </head>
-<body class="author-template author-ghost">
+<body class="post-template tag-getting-started">
 <div class="viewport">
 
     <header id="gh-head" class="gh-head has-cover">
@@ -145,7 +188,7 @@
     <li class="nav-home"><a href="https://nick-mc.github.io/">Home</a></li>
     <li class="nav-about"><a href="https://nick-mc.github.io/about/">About</a></li>
     <li class="nav-collection"><a href="https://nick-mc.github.io/tag/getting-started/">Collection</a></li>
-    <li class="nav-author nav-current"><a href="https://nick-mc.github.io/author/ghost/">Author</a></li>
+    <li class="nav-author"><a href="https://nick-mc.github.io/author/ghost/">Author</a></li>
     <li class="nav-portal"><a href="https://nick-mc.github.io/portal/">Portal</a></li>
 </ul>
 
@@ -165,34 +208,81 @@
     <div class="site-content">
         
 
-<section class="outer">
-    <div class="inner posts">
 
-        <header class="author-profile">
 
-            <div class="author-profile-content">
+<main id="site-main" class="site-main">
+    <article class="article post tag-getting-started ">
 
-                <img class="author-profile-pic" src="https://static.ghost.org/v4.0.0/images/ghost-user.png" alt="Ghost" />
+        <header class="article-header gh-canvas">
 
-                <h1>Ghost</h1>
-                <p>
-                        You can delete this user to remove all the welcome posts
-                </p>
+            <section class="article-tag">
+                <a href="https://nick-mc.github.io/tag/getting-started/">Getting Started</a>
+            </section>
 
-                <div class="author-profile-meta">
-                    <div class="author-profile-location">📍 The Internet</div>
-                    <span><a class="author-profile-social-link" href="https://ghost.org" target="_blank" rel="noopener">https://ghost.org</a></span>
-                    <span><a class="author-profile-social-link" href="https://twitter.com/ghost" target="_blank" rel="noopener">https://twitter.com/ghost</a></span>
-                    <span><a class="author-profile-social-link" href="https://www.facebook.com/ghost" target="_blank" rel="noopener">https://www.facebook.com/ghost</a></span>
-                </div>
+            <h1 class="article-title">Setting up apps and custom integrations</h1>
 
+            <p class="article-excerpt">Work with all your favorite apps and tools or create your own custom integrations using the Ghost API.</p>
+
+            <div class="article-byline">
+                <section class="article-byline-content">
+                    <ul class="author-list">
+                        <li class="author-list-item">
+                            <a href="/author/ghost/" class="author-avatar">
+                                <img class="author-profile-image" src="https://static.ghost.org/v4.0.0/images/ghost-user.png" alt="Ghost" />
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="article-byline-meta">
+                        <h4 class="author-name"><a href="/author/ghost/">Ghost</a></h4>
+                        <div class="byline-meta-content">
+                            <time class="byline-meta-date" datetime="2023-03-24">Mar 24, 2023</time>
+                            <span class="byline-reading-time"><span class="bull">&bull;</span> 1 min read</span>
+                        </div>
+                    </div>
+                </section>
             </div>
 
+            <figure class="article-image">
+                <img
+                    thisisbuggedatm="https://static.ghost.org/v4.0.0/images/app-integrations.png 300w,
+                            https://static.ghost.org/v4.0.0/images/app-integrations.png 600w,
+                            https://static.ghost.org/v4.0.0/images/app-integrations.png 1000w,
+                            https://static.ghost.org/v4.0.0/images/app-integrations.png 2000w"
+                    sizes="(min-width: 1400px) 1400px, 92vw"
+                    src="https://static.ghost.org/v4.0.0/images/app-integrations.png"
+                    alt="Setting up apps and custom integrations"
+                />
+            </figure>
         </header>
 
-        <div class="post-feed">
-                
-<article class="post-card post tag-getting-started ">
+        <section class="gh-content gh-canvas">
+            <p>It's possible to extend your Ghost site and connect it with hundreds of the most popular apps and tools using integrations. </p><p>Whether you need to automatically publish new posts on social media, connect your favorite analytics tool, sync your community or embed forms into your content — our <a href="https://ghost.org/integrations/">integrations library</a> has got it all covered with hundreds of integration tutorials.</p><p>Many integrations are as simple as inserting an embed by pasting a link, or copying a snippet of code directly from an app and pasting it into Ghost. Our integration tutorials are used by creators of all kinds to get apps and integrations up and running in no time — no technical knowledge required.</p><figure class="kg-card kg-image-card kg-width-full"><img src="https://static.ghost.org/v4.0.0/images/integrations-icons.png" class="kg-image" alt loading="lazy"></figure><h2 id="zapier">Zapier</h2><p>Zapier is a no-code tool that allows you to build powerful automations, and our official integration allows you to connect your Ghost site to more than 1,000 external services.</p><blockquote><strong>Example</strong>: When someone new subscribes to a newsletter on a Ghost site (Trigger) then the contact information is automatically pushed into MailChimp (Action).</blockquote><p><strong>Here's a few of the most popular automation templates:</strong> </p><!--kg-card-begin: markdown--><script src="https://zapier.com/apps/embed/widget.js?services=Ghost,-shortcm,-hubspot,-sendpulse,-noticeable,-aweber,-icontact,-facebook-pages,-github,-medium,-slack,-mailchimp,-activecampaign,-twitter,-discourse&container,-convertkit,-drip,-airtable=true&limit=5"></script>
+<!--kg-card-end: markdown--><h2 id="custom-integrations">Custom integrations</h2><p>For more advanced automation, it's possible to create custom Ghost integrations with dedicated API keys from the Integrations page within Ghost Admin. </p><figure class="kg-card kg-image-card"><img src="https://static.ghost.org/v4.0.0/images/iawriter-integration.png" class="kg-image" alt loading="lazy" width="2244" height="936"></figure><p>These custom integrations allow you to use the Ghost API without needing to write code, and create powerful workflows such as sending content from your favorite desktop editor into Ghost as a new draft.</p>
+        </section>
+
+
+    </article>
+</main>
+
+
+    <section class="footer-cta ">
+        <div class="inner">
+            <h2>Sign up for more like this.</h2>
+            <a class="footer-cta-button" href="#/portal" data-portal>
+                <div class="footer-cta-input">Enter your email</div>
+                <span>Subscribe</span>
+            </a>
+        </div>
+    </section>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post ">
 
     <a class="post-card-image-link" href="/welcome/">
         <img class="post-card-image"
@@ -211,7 +301,6 @@
 
         <a class="post-card-content-link" href="/welcome/">
             <header class="post-card-header">
-                    <div class="post-card-primary-tag">Getting Started</div>
                 <h2 class="post-card-title">Start here for a quick overview of everything you need to know</h2>
             </header>
             <div class="post-card-excerpt">
@@ -236,8 +325,8 @@
     </div>
 
 </article>
-                
-<article class="post-card post tag-getting-started ">
+                    
+<article class="post-card post ">
 
     <a class="post-card-image-link" href="/design/">
         <img class="post-card-image"
@@ -256,7 +345,6 @@
 
         <a class="post-card-content-link" href="/design/">
             <header class="post-card-header">
-                    <div class="post-card-primary-tag">Getting Started</div>
                 <h2 class="post-card-title">Customizing your brand and design settings</h2>
             </header>
             <div class="post-card-excerpt">
@@ -281,8 +369,8 @@
     </div>
 
 </article>
-                
-<article class="post-card post tag-getting-started ">
+                    
+<article class="post-card post ">
 
     <a class="post-card-image-link" href="/write/">
         <img class="post-card-image"
@@ -301,7 +389,6 @@
 
         <a class="post-card-content-link" href="/write/">
             <header class="post-card-header">
-                    <div class="post-card-primary-tag">Getting Started</div>
                 <h2 class="post-card-title">Writing and managing content in Ghost, an advanced guide</h2>
             </header>
             <div class="post-card-excerpt">
@@ -326,190 +413,10 @@
     </div>
 
 </article>
-                
-<article class="post-card post tag-getting-started ">
-
-    <a class="post-card-image-link" href="/portal/">
-        <img class="post-card-image"
-            thisisbuggedatm="https://static.ghost.org/v4.0.0/images/creating-a-custom-theme.png 300w,
-                    https://static.ghost.org/v4.0.0/images/creating-a-custom-theme.png 600w,
-                    https://static.ghost.org/v4.0.0/images/creating-a-custom-theme.png 1000w,
-                    https://static.ghost.org/v4.0.0/images/creating-a-custom-theme.png 2000w"
-            sizes="(max-width: 1000px) 400px, 800px"
-            src="https://static.ghost.org/v4.0.0/images/creating-a-custom-theme.png"
-            alt="Building your audience with subscriber signups"
-            loading="lazy"
-        />
-    </a>
-
-    <div class="post-card-content">
-
-        <a class="post-card-content-link" href="/portal/">
-            <header class="post-card-header">
-                    <div class="post-card-primary-tag">Getting Started</div>
-                <h2 class="post-card-title">Building your audience with subscriber signups</h2>
-            </header>
-            <div class="post-card-excerpt">
-                <p>How Ghost allows you to turn anonymous readers into an audience of active subscribers, so you know what's working and what isn't.</p>
-            </div>
-        </a>
-
-        <footer class="post-card-meta">
-            <ul class="author-list">
-                <li class="author-list-item">
-                    <a href="/author/ghost/" class="static-avatar">
-                        <img class="author-profile-image" src="https://static.ghost.org/v4.0.0/images/ghost-user.png" alt="Ghost" loading="lazy" />
-                    </a>
-                </li>
-            </ul>
-            <div class="post-card-byline-content">
-                <span><a href="/author/ghost/">Ghost</a></span>
-                <span class="post-card-byline-date"><time datetime="2023-03-24">Mar 24, 2023</time> <span class="bull">&bull;</span> 2 min read</span>
-            </div>
-        </footer>
 
     </div>
+</aside>
 
-</article>
-                
-<article class="post-card post tag-getting-started ">
-
-    <a class="post-card-image-link" href="/sell/">
-        <img class="post-card-image"
-            thisisbuggedatm="https://static.ghost.org/v4.0.0/images/organizing-your-content.png 300w,
-                    https://static.ghost.org/v4.0.0/images/organizing-your-content.png 600w,
-                    https://static.ghost.org/v4.0.0/images/organizing-your-content.png 1000w,
-                    https://static.ghost.org/v4.0.0/images/organizing-your-content.png 2000w"
-            sizes="(max-width: 1000px) 400px, 800px"
-            src="https://static.ghost.org/v4.0.0/images/organizing-your-content.png"
-            alt="Selling premium memberships with recurring revenue"
-            loading="lazy"
-        />
-    </a>
-
-    <div class="post-card-content">
-
-        <a class="post-card-content-link" href="/sell/">
-            <header class="post-card-header">
-                    <div class="post-card-primary-tag">Getting Started</div>
-                <h2 class="post-card-title">Selling premium memberships with recurring revenue</h2>
-            </header>
-            <div class="post-card-excerpt">
-                <p>For creators and aspiring entrepreneurs looking to generate a sustainable recurring revenue stream from their creative work, Ghost has built-in payments allowing you to create a subscription commerce business. Connect your Stripe account to Ghost, and you'll be able to quickly and easily create monthly and yearly premium plans for</p>
-            </div>
-        </a>
-
-        <footer class="post-card-meta">
-            <ul class="author-list">
-                <li class="author-list-item">
-                    <a href="/author/ghost/" class="static-avatar">
-                        <img class="author-profile-image" src="https://static.ghost.org/v4.0.0/images/ghost-user.png" alt="Ghost" loading="lazy" />
-                    </a>
-                </li>
-            </ul>
-            <div class="post-card-byline-content">
-                <span><a href="/author/ghost/">Ghost</a></span>
-                <span class="post-card-byline-date"><time datetime="2023-03-24">Mar 24, 2023</time> <span class="bull">&bull;</span> 1 min read</span>
-            </div>
-        </footer>
-
-    </div>
-
-</article>
-                
-<article class="post-card post tag-getting-started ">
-
-    <a class="post-card-image-link" href="/grow/">
-        <img class="post-card-image"
-            thisisbuggedatm="https://static.ghost.org/v4.0.0/images/admin-settings.png 300w,
-                    https://static.ghost.org/v4.0.0/images/admin-settings.png 600w,
-                    https://static.ghost.org/v4.0.0/images/admin-settings.png 1000w,
-                    https://static.ghost.org/v4.0.0/images/admin-settings.png 2000w"
-            sizes="(max-width: 1000px) 400px, 800px"
-            src="https://static.ghost.org/v4.0.0/images/admin-settings.png"
-            alt="How to grow your business around an audience"
-            loading="lazy"
-        />
-    </a>
-
-    <div class="post-card-content">
-
-        <a class="post-card-content-link" href="/grow/">
-            <header class="post-card-header">
-                    <div class="post-card-primary-tag">Getting Started</div>
-                <h2 class="post-card-title">How to grow your business around an audience</h2>
-            </header>
-            <div class="post-card-excerpt">
-                <p>A guide to collaborating with other staff users to publish, and some resources to help you with the next steps of growing your business</p>
-            </div>
-        </a>
-
-        <footer class="post-card-meta">
-            <ul class="author-list">
-                <li class="author-list-item">
-                    <a href="/author/ghost/" class="static-avatar">
-                        <img class="author-profile-image" src="https://static.ghost.org/v4.0.0/images/ghost-user.png" alt="Ghost" loading="lazy" />
-                    </a>
-                </li>
-            </ul>
-            <div class="post-card-byline-content">
-                <span><a href="/author/ghost/">Ghost</a></span>
-                <span class="post-card-byline-date"><time datetime="2023-03-24">Mar 24, 2023</time> <span class="bull">&bull;</span> 2 min read</span>
-            </div>
-        </footer>
-
-    </div>
-
-</article>
-                
-<article class="post-card post tag-getting-started ">
-
-    <a class="post-card-image-link" href="/integrations/">
-        <img class="post-card-image"
-            thisisbuggedatm="https://static.ghost.org/v4.0.0/images/app-integrations.png 300w,
-                    https://static.ghost.org/v4.0.0/images/app-integrations.png 600w,
-                    https://static.ghost.org/v4.0.0/images/app-integrations.png 1000w,
-                    https://static.ghost.org/v4.0.0/images/app-integrations.png 2000w"
-            sizes="(max-width: 1000px) 400px, 800px"
-            src="https://static.ghost.org/v4.0.0/images/app-integrations.png"
-            alt="Setting up apps and custom integrations"
-            loading="lazy"
-        />
-    </a>
-
-    <div class="post-card-content">
-
-        <a class="post-card-content-link" href="/integrations/">
-            <header class="post-card-header">
-                    <div class="post-card-primary-tag">Getting Started</div>
-                <h2 class="post-card-title">Setting up apps and custom integrations</h2>
-            </header>
-            <div class="post-card-excerpt">
-                <p>Work with all your favorite apps and tools or create your own custom integrations using the Ghost API.</p>
-            </div>
-        </a>
-
-        <footer class="post-card-meta">
-            <ul class="author-list">
-                <li class="author-list-item">
-                    <a href="/author/ghost/" class="static-avatar">
-                        <img class="author-profile-image" src="https://static.ghost.org/v4.0.0/images/ghost-user.png" alt="Ghost" loading="lazy" />
-                    </a>
-                </li>
-            </ul>
-            <div class="post-card-byline-content">
-                <span><a href="/author/ghost/">Ghost</a></span>
-                <span class="post-card-byline-date"><time datetime="2023-03-24">Mar 24, 2023</time> <span class="bull">&bull;</span> 1 min read</span>
-            </div>
-        </footer>
-
-    </div>
-
-</article>
-        </div>
-
-    </div>
-</section>
 
     </div>
 
