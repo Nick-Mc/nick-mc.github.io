@@ -1,3 +1,6 @@
+# Notes
+To edit theme open docker container within Vscode using docker plugin on Vscode.
+
 # ecto1
 A downloader/scraper/static-site-maker for [Ghost](https://github.com/TryGhost/Ghost) blogs
 
