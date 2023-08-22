@@ -68,10 +68,7 @@ __all__ = [
     'exactly_n',
     'filter_except',
     'first',
-<<<<<<< HEAD
-=======
     'gray_product',
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     'groupby_transform',
     'ichunked',
     'iequals',
@@ -662,10 +659,7 @@ def distinct_permutations(iterable, r=None):
         [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]
 
     """
-<<<<<<< HEAD
-=======
 
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     # Algorithm: https://w.wiki/Qai
     def _full(A):
         while True:
@@ -1309,11 +1303,7 @@ def split_at(iterable, pred, maxsplit=-1, keep_separator=False):
         [[0], [2], [4, 5, 6, 7, 8, 9]]
 
     By default, the delimiting items are not included in the output.
-<<<<<<< HEAD
-    The include them, set *keep_separator* to ``True``.
-=======
     To include them, set *keep_separator* to ``True``.
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
         >>> list(split_at('abcdcba', lambda x: x == 'b', keep_separator=True))
         [['a'], ['b'], ['c', 'd', 'c'], ['b'], ['a']]
@@ -1403,13 +1393,9 @@ def split_after(iterable, pred, maxsplit=-1):
         if pred(item) and buf:
             yield buf
             if maxsplit == 1:
-<<<<<<< HEAD
-                yield list(it)
-=======
                 buf = list(it)
                 if buf:
                     yield buf
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 return
             buf = []
             maxsplit -= 1
@@ -2932,10 +2918,7 @@ def make_decorator(wrapping_func, result_index=0):
         '7'
 
     """
-<<<<<<< HEAD
-=======
 
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     # See https://sites.google.com/site/bbayles/index/decorator_factory for
     # notes on how this works.
     def decorator(*wrapping_args, **wrapping_kwargs):
@@ -3486,10 +3469,6 @@ def _sample_unweighted(iterable, k):
     next_index = k + floor(log(random()) / log(1 - W))
 
     for index, element in enumerate(iterable, k):
-<<<<<<< HEAD
-
-=======
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         if index == next_index:
             reservoir[randrange(k)] = element
             # The new W is the largest in a sample of k U(0, `old_W`) numbers
@@ -4308,10 +4287,6 @@ def minmax(iterable_or_value, *others, key=None, default=_marker):
         lo_key = hi_key = key(lo)
 
         for x, y in zip_longest(it, it, fillvalue=lo):
-<<<<<<< HEAD
-
-=======
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             x_key, y_key = key(x), key(y)
 
             if y_key < x_key:
@@ -4372,8 +4347,6 @@ def constrained_batches(
 
     if batch:
         yield tuple(batch)
-<<<<<<< HEAD
-=======
 
 
 def gray_product(*iterables):
@@ -4416,4 +4389,3 @@ def gray_product(*iterables):
             o[j] = -o[j]
             f[j] = f[j + 1]
             f[j + 1] = j + 1
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)

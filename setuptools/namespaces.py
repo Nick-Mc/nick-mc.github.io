@@ -7,10 +7,6 @@ flatten = itertools.chain.from_iterable
 
 
 class Installer:
-<<<<<<< HEAD
-
-=======
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     nspkg_ext = '-nspkg.pth'
 
     def install_namespaces(self):
@@ -55,26 +51,13 @@ class Installer:
             "importlib.machinery.PathFinder.find_spec(%(pkg)r, "
             "[os.path.dirname(p)])))"
         ),
-<<<<<<< HEAD
-        (
-            "m = m or "
-            "sys.modules.setdefault(%(pkg)r, types.ModuleType(%(pkg)r))"
-        ),
-=======
         ("m = m or " "sys.modules.setdefault(%(pkg)r, types.ModuleType(%(pkg)r))"),
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         "mp = (m or []) and m.__dict__.setdefault('__path__',[])",
         "(p not in mp) and mp.append(p)",
     )
     "lines for the namespace installer"
 
-<<<<<<< HEAD
-    _nspkg_tmpl_multi = (
-        'm and setattr(sys.modules[%(parent)r], %(child)r, m)',
-    )
-=======
     _nspkg_tmpl_multi = ('m and setattr(sys.modules[%(parent)r], %(child)r, m)',)
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     "additional line(s) when a parent package is indicated"
 
     def _get_root(self):

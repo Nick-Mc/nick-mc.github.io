@@ -1,9 +1,5 @@
 from distutils import log
 import distutils.command.install_scripts as orig
-<<<<<<< HEAD
-from distutils.errors import DistutilsModuleError
-=======
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 import os
 import sys
 
@@ -35,22 +31,6 @@ class install_scripts(orig.install_scripts):
 
         ei_cmd = self.get_finalized_command("egg_info")
         dist = Distribution(
-<<<<<<< HEAD
-            ei_cmd.egg_base, PathMetadata(ei_cmd.egg_base, ei_cmd.egg_info),
-            ei_cmd.egg_name, ei_cmd.egg_version,
-        )
-        bs_cmd = self.get_finalized_command('build_scripts')
-        exec_param = getattr(bs_cmd, 'executable', None)
-        try:
-            bw_cmd = self.get_finalized_command("bdist_wininst")
-            is_wininst = getattr(bw_cmd, '_is_running', False)
-        except (ImportError, DistutilsModuleError):
-            is_wininst = False
-        writer = ei.ScriptWriter
-        if is_wininst:
-            exec_param = "python.exe"
-            writer = ei.WindowsScriptWriter
-=======
             ei_cmd.egg_base,
             PathMetadata(ei_cmd.egg_base, ei_cmd.egg_info),
             ei_cmd.egg_name,
@@ -59,7 +39,6 @@ class install_scripts(orig.install_scripts):
         bs_cmd = self.get_finalized_command('build_scripts')
         exec_param = getattr(bs_cmd, 'executable', None)
         writer = ei.ScriptWriter
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         if exec_param == sys.executable:
             # In case the path to the Python executable contains a space, wrap
             # it so it's not split up.

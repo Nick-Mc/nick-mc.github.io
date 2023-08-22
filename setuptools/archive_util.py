@@ -11,10 +11,6 @@ from distutils.errors import DistutilsError
 from ._path import ensure_directory
 
 __all__ = [
-<<<<<<< HEAD
-    "unpack_archive", "unpack_zipfile", "unpack_tarfile", "default_filter",
-    "UnrecognizedFormat", "extraction_drivers", "unpack_directory",
-=======
     "unpack_archive",
     "unpack_zipfile",
     "unpack_tarfile",
@@ -22,7 +18,6 @@ __all__ = [
     "UnrecognizedFormat",
     "extraction_drivers",
     "unpack_directory",
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 ]
 
 
@@ -35,13 +30,7 @@ def default_filter(src, dst):
     return dst
 
 
-<<<<<<< HEAD
-def unpack_archive(
-        filename, extract_dir, progress_filter=default_filter,
-        drivers=None):
-=======
 def unpack_archive(filename, extract_dir, progress_filter=default_filter, drivers=None):
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     """Unpack `filename` to `extract_dir`, or raise ``UnrecognizedFormat``
 
     `progress_filter` is a function taking two arguments: a source path
@@ -70,21 +59,11 @@ def unpack_archive(filename, extract_dir, progress_filter=default_filter, driver
         else:
             return
     else:
-<<<<<<< HEAD
-        raise UnrecognizedFormat(
-            "Not a recognized archive type: %s" % filename
-        )
-
-
-def unpack_directory(filename, extract_dir, progress_filter=default_filter):
-    """"Unpack" a directory, using the same interface as for archives
-=======
         raise UnrecognizedFormat("Not a recognized archive type: %s" % filename)
 
 
 def unpack_directory(filename, extract_dir, progress_filter=default_filter):
     """ "Unpack" a directory, using the same interface as for archives
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     Raises ``UnrecognizedFormat`` if `filename` is not a directory
     """
@@ -158,12 +137,8 @@ def _unpack_zipfile_obj(zipfile_obj, extract_dir, progress_filter=default_filter
 def _resolve_tar_file_or_dir(tar_obj, tar_member_obj):
     """Resolve any links and extract link targets as normal files."""
     while tar_member_obj is not None and (
-<<<<<<< HEAD
-            tar_member_obj.islnk() or tar_member_obj.issym()):
-=======
         tar_member_obj.islnk() or tar_member_obj.issym()
     ):
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         linkpath = tar_member_obj.linkname
         if tar_member_obj.issym():
             base = posixpath.dirname(tar_member_obj.name)
@@ -171,14 +146,8 @@ def _resolve_tar_file_or_dir(tar_obj, tar_member_obj):
             linkpath = posixpath.normpath(linkpath)
         tar_member_obj = tar_obj._getmember(linkpath)
 
-<<<<<<< HEAD
-    is_file_or_dir = (
-        tar_member_obj is not None and
-        (tar_member_obj.isfile() or tar_member_obj.isdir())
-=======
     is_file_or_dir = tar_member_obj is not None and (
         tar_member_obj.isfile() or tar_member_obj.isdir()
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     )
     if is_file_or_dir:
         return tar_member_obj
@@ -230,13 +199,9 @@ def unpack_tarfile(filename, extract_dir, progress_filter=default_filter):
         ) from e
 
     for member, final_dst in _iter_open_tar(
-<<<<<<< HEAD
-            tarobj, extract_dir, progress_filter,
-=======
         tarobj,
         extract_dir,
         progress_filter,
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     ):
         try:
             # XXX Ugh

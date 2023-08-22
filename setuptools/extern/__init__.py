@@ -58,12 +58,8 @@ class VendorImporter:
         """Return a module spec for vendored names."""
         return (
             importlib.util.spec_from_loader(fullname, self)
-<<<<<<< HEAD
-            if self._module_matches_namespace(fullname) else None
-=======
             if self._module_matches_namespace(fullname)
             else None
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         )
 
     def install(self):

@@ -7,11 +7,7 @@ import os
 import importlib.util
 import importlib.machinery
 
-<<<<<<< HEAD
-from .py34compat import module_from_spec
-=======
 from importlib.util import module_from_spec
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 PY_SOURCE = 1
@@ -24,13 +20,8 @@ PY_FROZEN = 7
 def find_spec(module, paths):
     finder = (
         importlib.machinery.PathFinder().find_spec
-<<<<<<< HEAD
-        if isinstance(paths, list) else
-        importlib.util.find_spec
-=======
         if isinstance(paths, list)
         else importlib.util.find_spec
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     )
     return finder(module, paths)
 
@@ -46,15 +37,6 @@ def find_module(module, paths=None):
     kind = -1
     file = None
     static = isinstance(spec.loader, type)
-<<<<<<< HEAD
-    if spec.origin == 'frozen' or static and issubclass(
-            spec.loader, importlib.machinery.FrozenImporter):
-        kind = PY_FROZEN
-        path = None  # imp compabilty
-        suffix = mode = ''  # imp compatibility
-    elif spec.origin == 'built-in' or static and issubclass(
-            spec.loader, importlib.machinery.BuiltinImporter):
-=======
     if (
         spec.origin == 'frozen'
         or static
@@ -68,7 +50,6 @@ def find_module(module, paths=None):
         or static
         and issubclass(spec.loader, importlib.machinery.BuiltinImporter)
     ):
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         kind = C_BUILTIN
         path = None  # imp compabilty
         suffix = mode = ''  # imp compatibility

@@ -9,10 +9,6 @@ import socket
 import base64
 import hashlib
 import itertools
-<<<<<<< HEAD
-import warnings
-=======
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 import configparser
 import html
 import http.client
@@ -199,11 +195,7 @@ def interpret_distro_name(
         '-'.join(parts[p:]),
         py_version=py_version,
         precedence=precedence,
-<<<<<<< HEAD
-        platform=platform
-=======
         platform=platform,
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     )
 
 
@@ -313,11 +305,7 @@ class PackageIndex(Environment):
         ca_bundle=None,
         verify_ssl=True,
         *args,
-<<<<<<< HEAD
-        **kw
-=======
         **kw,
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     ):
         super().__init__(*args, **kw)
         self.index_url = index_url + "/"[: not index_url.endswith('/')]
@@ -413,12 +401,8 @@ class PackageIndex(Environment):
             return True
         msg = (
             "\nNote: Bypassing %s (disallowed host; see "
-<<<<<<< HEAD
-            "http://bit.ly/2hrImnY for details).\n"
-=======
             "https://setuptools.pypa.io/en/latest/deprecated/"
             "easy_install.html#restricting-downloads-with-allow-hosts for details).\n"
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         )
         if fatal:
             raise DistutilsError(msg % url)
@@ -650,10 +634,6 @@ class PackageIndex(Environment):
             # Find a matching distribution; may be called more than once
 
             for dist in env[req.key]:
-<<<<<<< HEAD
-
-=======
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 if dist.precedence == DEVELOP_DIST and not develop_ok:
                     if dist not in skipped:
                         self.warn(
@@ -867,48 +847,6 @@ class PackageIndex(Environment):
     def _attempt_download(self, url, filename):
         headers = self._download_to(url, filename)
         if 'html' in headers.get('content-type', '').lower():
-<<<<<<< HEAD
-            return self._download_html(url, headers, filename)
-        else:
-            return filename
-
-    def _download_html(self, url, headers, filename):
-        file = open(filename)
-        for line in file:
-            if line.strip():
-                # Check for a subversion index page
-                if re.search(r'<title>([^- ]+ - )?Revision \d+:', line):
-                    # it's a subversion index page:
-                    file.close()
-                    os.unlink(filename)
-                    return self._download_svn(url, filename)
-                break  # not an index page
-        file.close()
-        os.unlink(filename)
-        raise DistutilsError("Unexpected HTML page found at " + url)
-
-    def _download_svn(self, url, filename):
-        warnings.warn("SVN download support is deprecated", UserWarning)
-        url = url.split('#', 1)[0]  # remove any fragment for svn's sake
-        creds = ''
-        if url.lower().startswith('svn:') and '@' in url:
-            scheme, netloc, path, p, q, f = urllib.parse.urlparse(url)
-            if not netloc and path.startswith('//') and '/' in path[2:]:
-                netloc, path = path[2:].split('/', 1)
-                auth, host = _splituser(netloc)
-                if auth:
-                    if ':' in auth:
-                        user, pw = auth.split(':', 1)
-                        creds = " --username=%s --password=%s" % (user, pw)
-                    else:
-                        creds = " --username=" + auth
-                    netloc = host
-                    parts = scheme, netloc, url, p, q, f
-                    url = urllib.parse.urlunparse(parts)
-        self.info("Doing subversion checkout from %s to %s", url, filename)
-        os.system("svn checkout%s -q %s %s" % (creds, url, filename))
-        return filename
-=======
             return self._invalid_download_html(url, headers, filename)
         else:
             return filename
@@ -919,7 +857,6 @@ class PackageIndex(Environment):
 
     def _download_svn(self, url, _filename):
         raise DistutilsError(f"Invalid config, SVN download is not supported: {url}")
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     @staticmethod
     def _vcs_split_rev_from_url(url, pop_prefix=False):

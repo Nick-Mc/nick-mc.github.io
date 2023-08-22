@@ -10,11 +10,7 @@
 import collections
 import itertools
 import re
-<<<<<<< HEAD
-from typing import Callable, Optional, SupportsInt, Tuple, Union
-=======
 from typing import Any, Callable, Optional, SupportsInt, Tuple, Union
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 from ._structures import Infinity, InfinityType, NegativeInfinity, NegativeInfinityType
 
@@ -67,11 +63,7 @@ class InvalidVersion(ValueError):
 
 
 class _BaseVersion:
-<<<<<<< HEAD
-    _key: CmpKey
-=======
     _key: Tuple[Any, ...]
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     def __hash__(self) -> int:
         return hash(self._key)
@@ -187,10 +179,7 @@ class Version(_BaseVersion):
     """
 
     _regex = re.compile(r"^\s*" + VERSION_PATTERN + r"\s*$", re.VERBOSE | re.IGNORECASE)
-<<<<<<< HEAD
-=======
     _key: CmpKey
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     def __init__(self, version: str) -> None:
         """Initialize a Version object.

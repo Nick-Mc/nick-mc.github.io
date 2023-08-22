@@ -1,12 +1,6 @@
 import distutils.command.bdist_rpm as orig
-<<<<<<< HEAD
-import warnings
-
-from setuptools import SetuptoolsDeprecationWarning
-=======
 
 from ..warnings import SetuptoolsDeprecationWarning
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 class bdist_rpm(orig.bdist_rpm):
@@ -19,12 +13,6 @@ class bdist_rpm(orig.bdist_rpm):
     """
 
     def run(self):
-<<<<<<< HEAD
-        warnings.warn(
-            "bdist_rpm is deprecated and will be removed in a future "
-            "version. Use bdist_wheel (wheel packages) instead.",
-            SetuptoolsDeprecationWarning,
-=======
         SetuptoolsDeprecationWarning.emit(
             "Deprecated command",
             """
@@ -33,7 +21,6 @@ class bdist_rpm(orig.bdist_rpm):
             """,
             see_url="https://github.com/pypa/setuptools/issues/1988",
             due_date=(2023, 10, 30),  # Deprecation introduced in 22 Oct 2021.
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         )
 
         # ensure distro name is up-to-date
@@ -46,16 +33,8 @@ class bdist_rpm(orig.bdist_rpm):
         spec = [
             line.replace(
                 "setup.py install ",
-<<<<<<< HEAD
-                "setup.py install --single-version-externally-managed "
-            ).replace(
-                "%setup",
-                "%setup -n %{name}-%{unmangled_version}"
-            )
-=======
                 "setup.py install --single-version-externally-managed ",
             ).replace("%setup", "%setup -n %{name}-%{unmangled_version}")
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             for line in spec
         ]
         return spec

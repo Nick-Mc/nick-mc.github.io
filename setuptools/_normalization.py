@@ -3,22 +3,11 @@ Helpers for normalization as expected in wheel/sdist/module file names
 and core metadata
 """
 import re
-<<<<<<< HEAD
-import warnings
-from inspect import cleandoc
-from pathlib import Path
-from typing import Union
-
-from setuptools.extern import packaging
-
-from ._deprecation_warning import SetuptoolsDeprecationWarning
-=======
 from pathlib import Path
 from typing import Union
 
 from .extern import packaging
 from .warnings import SetuptoolsDeprecationWarning
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 _Path = Union[str, Path]
 
@@ -87,20 +76,6 @@ def best_effort_version(version: str) -> str:
     try:
         return safe_version(version)
     except packaging.version.InvalidVersion:
-<<<<<<< HEAD
-        msg = f"""Invalid version: {version!r}.
-        !!\n\n
-        ###################
-        # Invalid version #
-        ###################
-        {version!r} is not valid according to PEP 440.\n
-        Please make sure specify a valid version for your package.
-        Also note that future releases of setuptools may halt the build process
-        if an invalid version is given.
-        \n\n!!
-        """
-        warnings.warn(cleandoc(msg), SetuptoolsDeprecationWarning)
-=======
         SetuptoolsDeprecationWarning.emit(
             f"Invalid version: {version!r}.",
             f"""
@@ -113,7 +88,6 @@ def best_effort_version(version: str) -> str:
             see_url="https://peps.python.org/pep-0440/",
             due_date=(2023, 9, 26),  # See setuptools/dist _validate_version
         )
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         v = version.replace(' ', '.')
         return safe_name(v)
 

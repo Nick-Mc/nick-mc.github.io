@@ -3,10 +3,6 @@
 import functools
 import os
 import re
-<<<<<<< HEAD
-import warnings
-=======
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 import _distutils_hack.override  # noqa: F401
 
@@ -14,11 +10,7 @@ import distutils.core
 from distutils.errors import DistutilsOptionError
 from distutils.util import convert_path as _convert_path
 
-<<<<<<< HEAD
-from ._deprecation_warning import SetuptoolsDeprecationWarning
-=======
 from .warnings import SetuptoolsDeprecationWarning
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 import setuptools.version
 from setuptools.extension import Extension
@@ -256,16 +248,6 @@ def findall(dir=os.curdir):
 
 @functools.wraps(_convert_path)
 def convert_path(pathname):
-<<<<<<< HEAD
-    from inspect import cleandoc
-
-    msg = """
-    The function `convert_path` is considered internal and not part of the public API.
-    Its direct usage by 3rd-party packages is considered deprecated and the function
-    may be removed in the future.
-    """
-    warnings.warn(cleandoc(msg), SetuptoolsDeprecationWarning)
-=======
     SetuptoolsDeprecationWarning.emit(
         "Access to implementation detail",
         """
@@ -277,7 +259,6 @@ def convert_path(pathname):
         """,
         due_date=(2023, 12, 13),  # initial deprecation 2022-03-25, see #3201
     )
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     return _convert_path(pathname)
 
 

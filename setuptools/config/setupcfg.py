@@ -2,14 +2,6 @@
 Load setuptools configuration from ``setup.cfg`` files.
 
 **API will be made private in the future**
-<<<<<<< HEAD
-"""
-import os
-
-import contextlib
-import functools
-import warnings
-=======
 
 To read project metadata, consider using
 ``build.util.project_wheel_metadata`` (https://pypi.org/project/build/).
@@ -19,7 +11,6 @@ with the help of ``configparser``.
 import contextlib
 import functools
 import os
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 from collections import defaultdict
 from functools import partial
 from functools import wraps
@@ -38,21 +29,6 @@ from typing import (
     Union,
 )
 
-<<<<<<< HEAD
-from distutils.errors import DistutilsOptionError, DistutilsFileError
-from setuptools.extern.packaging.requirements import Requirement, InvalidRequirement
-from setuptools.extern.packaging.markers import default_environment as marker_env
-from setuptools.extern.packaging.version import Version, InvalidVersion
-from setuptools.extern.packaging.specifiers import SpecifierSet
-from setuptools._deprecation_warning import SetuptoolsDeprecationWarning
-
-from . import expand
-
-if TYPE_CHECKING:
-    from setuptools.dist import Distribution  # noqa
-    from distutils.dist import DistributionMetadata  # noqa
-
-=======
 from ..errors import FileError, OptionError
 from ..extern.packaging.markers import default_environment as marker_env
 from ..extern.packaging.requirements import InvalidRequirement, Requirement
@@ -66,7 +42,6 @@ if TYPE_CHECKING:
 
     from setuptools.dist import Distribution  # noqa
 
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 _Path = Union[str, os.PathLike]
 SingleCommandOptions = Dict["str", Tuple["str", Any]]
 """Dict that associate the name of the options of a particular command to a
@@ -125,11 +100,7 @@ def _apply(
     filepath = os.path.abspath(filepath)
 
     if not os.path.isfile(filepath):
-<<<<<<< HEAD
-        raise DistutilsFileError('Configuration file %s does not exist.' % filepath)
-=======
         raise FileError(f'Configuration file {filepath} does not exist.')
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     current_directory = os.getcwd()
     os.chdir(os.path.dirname(filepath))
@@ -153,11 +124,7 @@ def _get_option(target_obj: Target, key: str):
     the target object, either through a get_{key} method or
     from an attribute directly.
     """
-<<<<<<< HEAD
-    getter_name = 'get_{key}'.format(**locals())
-=======
     getter_name = f'get_{key}'
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     by_attribute = functools.partial(getattr, target_obj, key)
     getter = getattr(target_obj, getter_name, by_attribute)
     return getter()
@@ -248,29 +215,14 @@ def _warn_accidental_env_marker_misconfig(label: str, orig_value: str, parsed: l
         return
 
     markers = marker_env().keys()
-<<<<<<< HEAD
-    msg = (
-        f"One of the parsed requirements in `{label}` "
-        f"looks like a valid environment marker: '{parsed[1]}'\n"
-        "Make sure that the config is correct and check "
-        "https://setuptools.pypa.io/en/latest/userguide/declarative_config.html#opt-2"  # noqa: E501
-    )
-=======
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     try:
         req = Requirement(parsed[1])
         if req.name in markers:
-<<<<<<< HEAD
-            warnings.warn(msg)
-    except InvalidRequirement as ex:
-        if any(parsed[1].startswith(marker) for marker in markers):
-=======
             _AmbiguousMarker.emit(field=label, req=parsed[1])
     except InvalidRequirement as ex:
         if any(parsed[1].startswith(marker) for marker in markers):
             msg = _AmbiguousMarker.message(field=label, req=parsed[1])
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             raise InvalidRequirement(msg) from ex
 
 
@@ -380,13 +332,7 @@ class ConfigHandler(Generic[Target]):
         for line in cls._parse_list(value):
             key, sep, val = line.partition(separator)
             if sep != separator:
-<<<<<<< HEAD
-                raise DistutilsOptionError(
-                    'Unable to parse option value to dict: %s' % value
-                )
-=======
                 raise OptionError(f"Unable to parse option value to dict: {value}")
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             result[key.strip()] = val.strip()
 
         return result
@@ -546,42 +492,24 @@ class ConfigHandler(Generic[Target]):
             )
 
             if section_parser_method is None:
-<<<<<<< HEAD
-                raise DistutilsOptionError(
-                    'Unsupported distribution option section: [%s.%s]'
-                    % (self.section_prefix, section_name)
-=======
                 raise OptionError(
                     "Unsupported distribution option section: "
                     f"[{self.section_prefix}.{section_name}]"
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 )
 
             section_parser_method(section_options)
 
-<<<<<<< HEAD
-    def _deprecated_config_handler(self, func, msg, warning_class):
-        """this function will wrap around parameters that are deprecated
-
-        :param msg: deprecation message
-        :param warning_class: class of warning exception to be raised
-=======
     def _deprecated_config_handler(self, func, msg, **kw):
         """this function will wrap around parameters that are deprecated
 
         :param msg: deprecation message
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         :param func: function to be wrapped around
         """
 
         @wraps(func)
         def config_handler(*args, **kwargs):
-<<<<<<< HEAD
-            warnings.warn(msg, warning_class)
-=======
             kw.setdefault("stacklevel", 2)
             _DeprecatedConfig.emit("Deprecated config in `setup.cfg`", msg, **kw)
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             return func(*args, **kwargs)
 
         return config_handler
@@ -632,12 +560,8 @@ class ConfigMetadataHandler(ConfigHandler["DistributionMetadata"]):
                 parse_list,
                 "The requires parameter is deprecated, please use "
                 "install_requires for runtime dependencies.",
-<<<<<<< HEAD
-                SetuptoolsDeprecationWarning,
-=======
                 due_date=(2023, 10, 30),
                 # Warning introduced in 27 Oct 2018
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             ),
             'obsoletes': parse_list,
             'classifiers': self._get_parser_compound(parse_file, parse_list),
@@ -646,12 +570,8 @@ class ConfigMetadataHandler(ConfigHandler["DistributionMetadata"]):
                 exclude_files_parser('license_file'),
                 "The license_file parameter is deprecated, "
                 "use license_files instead.",
-<<<<<<< HEAD
-                SetuptoolsDeprecationWarning,
-=======
                 due_date=(2023, 10, 30),
                 # Warning introduced in 23 May 2021
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             ),
             'license_files': parse_list,
             'description': parse_file,
@@ -676,18 +596,10 @@ class ConfigMetadataHandler(ConfigHandler["DistributionMetadata"]):
             try:
                 Version(version)
             except InvalidVersion:
-<<<<<<< HEAD
-                tmpl = (
-                    'Version loaded from {value} does not '
-                    'comply with PEP 440: {version}'
-                )
-                raise DistutilsOptionError(tmpl.format(**locals()))
-=======
                 raise OptionError(
                     f'Version loaded from {value} does not '
                     f'comply with PEP 440: {version}'
                 )
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
             return version
 
@@ -742,11 +654,7 @@ class ConfigOptionsHandler(ConfigHandler["Distribution"]):
                 parse_list,
                 "The namespace_packages parameter is deprecated, "
                 "consider using implicit namespaces instead (PEP 420).",
-<<<<<<< HEAD
-                SetuptoolsDeprecationWarning,
-=======
                 # TODO: define due date, see setuptools.dist:check_nsp.
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             ),
             'install_requires': partial(
                 self._parse_requirements_list, "install_requires"
@@ -855,8 +763,6 @@ class ConfigOptionsHandler(ConfigHandler["Distribution"]):
         """
         parsed = self._parse_section_to_dict(section_options, self._parse_list)
         self['data_files'] = expand.canonic_data_files(parsed, self.root_dir)
-<<<<<<< HEAD
-=======
 
 
 class _AmbiguousMarker(SetuptoolsDeprecationWarning):
@@ -881,4 +787,3 @@ class _AmbiguousMarker(SetuptoolsDeprecationWarning):
 
 class _DeprecatedConfig(SetuptoolsDeprecationWarning):
     _SEE_DOCS = "userguide/declarative_config.html"
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)

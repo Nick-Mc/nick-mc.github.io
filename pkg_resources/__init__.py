@@ -13,16 +13,8 @@ The package resource API is designed to work with normal filesystem packages,
 .zip files and with custom PEP 302 loaders that support the ``get_data()``
 method.
 
-<<<<<<< HEAD
-This module is deprecated. Users are directed to
-`importlib.resources <https://docs.python.org/3/library/importlib.resources.html>`_
-and
-`importlib.metadata <https://docs.python.org/3/library/importlib.metadata.html>`_
-instead.
-=======
 This module is deprecated. Users are directed to :mod:`importlib.resources`,
 :mod:`importlib.metadata` and :pypi:`packaging` instead.
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 """
 
 import sys
@@ -123,16 +115,12 @@ _namespace_handlers = None
 _namespace_packages = None
 
 
-<<<<<<< HEAD
-warnings.warn("pkg_resources is deprecated as an API", DeprecationWarning)
-=======
 warnings.warn(
     "pkg_resources is deprecated as an API. "
     "See https://setuptools.pypa.io/en/latest/pkg_resources.html",
     DeprecationWarning,
     stacklevel=2,
 )
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 _PEP440_FALLBACK = re.compile(r"^v?(?P<safe>(?:[0-9]+!)?[0-9]+(?:\.[0-9]+)*)", re.I)
@@ -1430,11 +1418,7 @@ def _forgiving_version(version):
     match = _PEP440_FALLBACK.search(version)
     if match:
         safe = match["safe"]
-<<<<<<< HEAD
-        rest = version[len(safe):]
-=======
         rest = version[len(safe) :]
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     else:
         safe = "0"
         rest = version
@@ -1677,16 +1661,9 @@ is not allowed.
 
         # for compatibility, warn; in future
         # raise ValueError(msg)
-<<<<<<< HEAD
-        warnings.warn(
-            msg[:-1] + " and will raise exceptions in a future release.",
-            DeprecationWarning,
-            stacklevel=4,
-=======
         issue_warning(
             msg[:-1] + " and will raise exceptions in a future release.",
             DeprecationWarning,
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         )
 
     def _get(self, path):
@@ -3070,12 +3047,9 @@ class Distribution:
         except ValueError:
             issue_warning("Unbuilt egg for " + repr(self))
             return False
-<<<<<<< HEAD
-=======
         except SystemError:
             # TODO: remove this except clause when python/cpython#103632 is fixed.
             return False
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         return True
 
     def clone(self, **kw):

@@ -35,17 +35,11 @@ def _get_mro(cls):
 
 def get_unpatched(item):
     lookup = (
-<<<<<<< HEAD
-        get_unpatched_class if isinstance(item, type) else
-        get_unpatched_function if isinstance(item, types.FunctionType) else
-        lambda item: None
-=======
         get_unpatched_class
         if isinstance(item, type)
         else get_unpatched_function
         if isinstance(item, types.FunctionType)
         else lambda item: None
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     )
     return lookup(item)
 
@@ -57,13 +51,7 @@ def get_unpatched_class(cls):
     first.
     """
     external_bases = (
-<<<<<<< HEAD
-        cls
-        for cls in _get_mro(cls)
-        if not cls.__module__.startswith('setuptools')
-=======
         cls for cls in _get_mro(cls) if not cls.__module__.startswith('setuptools')
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     )
     base = next(external_bases)
     if not base.__module__.startswith('distutils'):
@@ -82,18 +70,10 @@ def patch_all():
         # fix findall bug in distutils (http://bugs.python.org/issue12885)
         distutils.filelist.findall = setuptools.findall
 
-<<<<<<< HEAD
-    needs_warehouse = (
-        (3, 4) < sys.version_info < (3, 4, 6)
-        or
-        (3, 5) < sys.version_info <= (3, 5, 3)
-    )
-=======
     needs_warehouse = (3, 4) < sys.version_info < (3, 4, 6) or (
         3,
         5,
     ) < sys.version_info <= (3, 5, 3)
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     if needs_warehouse:
         warehouse = 'https://upload.pypi.org/legacy/'
@@ -109,15 +89,9 @@ def patch_all():
     distutils.core.Extension = setuptools.extension.Extension
     distutils.extension.Extension = setuptools.extension.Extension
     if 'distutils.command.build_ext' in sys.modules:
-<<<<<<< HEAD
-        sys.modules['distutils.command.build_ext'].Extension = (
-            setuptools.extension.Extension
-        )
-=======
         sys.modules[
             'distutils.command.build_ext'
         ].Extension = setuptools.extension.Extension
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     patch_for_msvc_specialized_compiler()
 

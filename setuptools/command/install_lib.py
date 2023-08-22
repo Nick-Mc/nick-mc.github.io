@@ -77,22 +77,13 @@ class install_lib(orig.install_lib):
         if not hasattr(sys, 'implementation'):
             return
 
-<<<<<<< HEAD
-        base = os.path.join(
-            '__pycache__', '__init__.' + sys.implementation.cache_tag)
-=======
         base = os.path.join('__pycache__', '__init__.' + sys.implementation.cache_tag)
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         yield base + '.pyc'
         yield base + '.pyo'
         yield base + '.opt-1.pyc'
         yield base + '.opt-2.pyc'
 
     def copy_tree(
-<<<<<<< HEAD
-            self, infile, outfile,
-            preserve_mode=1, preserve_times=1, preserve_symlinks=0, level=1
-=======
         self,
         infile,
         outfile,
@@ -100,7 +91,6 @@ class install_lib(orig.install_lib):
         preserve_times=1,
         preserve_symlinks=0,
         level=1,
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     ):
         assert preserve_mode and preserve_times and not preserve_symlinks
         exclude = self.get_exclusions()
@@ -117,12 +107,7 @@ class install_lib(orig.install_lib):
 
         def pf(src, dst):
             if dst in exclude:
-<<<<<<< HEAD
-                log.warn("Skipping installation of %s (namespace package)",
-                         dst)
-=======
                 log.warn("Skipping installation of %s (namespace package)", dst)
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 return False
 
             log.info("copying %s -> %s", src, os.path.dirname(dst))

@@ -9,21 +9,11 @@ need to be processed before being applied.
 """
 import logging
 import os
-<<<<<<< HEAD
-import warnings
-=======
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 from collections.abc import Mapping
 from email.headerregistry import Address
 from functools import partial, reduce
 from itertools import chain
 from types import MappingProxyType
-<<<<<<< HEAD
-from typing import (TYPE_CHECKING, Any, Callable, Dict, List, Optional, Set, Tuple,
-                    Type, Union, cast)
-
-from setuptools._deprecation_warning import SetuptoolsDeprecationWarning
-=======
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -39,7 +29,6 @@ from typing import (
 )
 
 from ..warnings import SetuptoolsWarning, SetuptoolsDeprecationWarning
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 if TYPE_CHECKING:
     from setuptools._importlib import metadata  # noqa
@@ -102,17 +91,11 @@ def _apply_tool_table(dist: "Distribution", config: dict, filename: _Path):
         norm_key = json_compatible_key(field)
 
         if norm_key in TOOL_TABLE_DEPRECATIONS:
-<<<<<<< HEAD
-            suggestion = TOOL_TABLE_DEPRECATIONS[norm_key]
-            msg = f"The parameter `{norm_key}` is deprecated, {suggestion}"
-            warnings.warn(msg, SetuptoolsDeprecationWarning)
-=======
             suggestion, kwargs = TOOL_TABLE_DEPRECATIONS[norm_key]
             msg = f"The parameter `{norm_key}` is deprecated, {suggestion}"
             SetuptoolsDeprecationWarning.emit(
                 "Deprecated config", msg, **kwargs  # type: ignore
             )
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
         norm_key = TOOL_TABLE_RENAMES.get(norm_key, norm_key)
         _set_config(dist, norm_key, value)
@@ -128,12 +111,7 @@ def _handle_missing_dynamic(dist: "Distribution", project_table: dict):
         if not (field in project_table or field in dynamic):
             value = getter(dist)
             if value:
-<<<<<<< HEAD
-                msg = _WouldIgnoreField.message(field, value)
-                warnings.warn(msg, _WouldIgnoreField)
-=======
                 _WouldIgnoreField.emit(field=field, value=value)
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 def json_compatible_key(key: str) -> str:
@@ -233,11 +211,7 @@ def _python_requires(dist: "Distribution", val: dict, _root_dir):
 def _dependencies(dist: "Distribution", val: list, _root_dir):
     if getattr(dist, "install_requires", []):
         msg = "`install_requires` overwritten in `pyproject.toml` (dependencies)"
-<<<<<<< HEAD
-        warnings.warn(msg)
-=======
         SetuptoolsWarning.emit(msg)
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     _set_config(dist, "install_requires", val)
 
 
@@ -316,8 +290,6 @@ def _normalise_cmd_options(desc: List[Tuple[str, Optional[str], str]]) -> Set[st
     return {_normalise_cmd_option_key(fancy_option[0]) for fancy_option in desc}
 
 
-<<<<<<< HEAD
-=======
 def _get_previous_entrypoints(dist: "Distribution") -> Dict[str, list]:
     ignore = ("console_scripts", "gui_scripts")
     value = getattr(dist, "entry_points", None) or {}
@@ -334,7 +306,6 @@ def _get_previous_gui_scripts(dist: "Distribution") -> Optional[list]:
     return value.get("gui_scripts")
 
 
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 def _attrgetter(attr):
     """
     Similar to ``operator.attrgetter`` but returns None if ``attr`` is not found
@@ -362,17 +333,11 @@ def _some_attrgetter(*items):
     >>> _some_attrgetter("d", "e", "f")(obj) is None
     True
     """
-<<<<<<< HEAD
-    def _acessor(obj):
-        values = (_attrgetter(i)(obj) for i in items)
-        return next((i for i in values if i is not None), None)
-=======
 
     def _acessor(obj):
         values = (_attrgetter(i)(obj) for i in items)
         return next((i for i in values if i is not None), None)
 
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     return _acessor
 
 
@@ -389,13 +354,6 @@ PYPROJECT_CORRESPONDENCE: Dict[str, _Correspondence] = {
 
 TOOL_TABLE_RENAMES = {"script_files": "scripts"}
 TOOL_TABLE_DEPRECATIONS = {
-<<<<<<< HEAD
-    "namespace_packages": "consider using implicit namespaces instead (PEP 420)."
-}
-
-SETUPTOOLS_PATCHES = {"long_description_content_type", "project_urls",
-                      "provides_extras", "license_file", "license_files"}
-=======
     "namespace_packages": (
         "consider using implicit namespaces instead (PEP 420).",
         {"due_date": (2023, 10, 30)},  # warning introduced in May 2022
@@ -409,7 +367,6 @@ SETUPTOOLS_PATCHES = {
     "license_file",
     "license_files",
 }
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 _PREVIOUSLY_DEFINED = {
     "name": _attrgetter("metadata.name"),
@@ -423,31 +380,18 @@ _PREVIOUSLY_DEFINED = {
     "keywords": _attrgetter("metadata.keywords"),
     "classifiers": _attrgetter("metadata.classifiers"),
     "urls": _attrgetter("metadata.project_urls"),
-<<<<<<< HEAD
-    "entry-points": _attrgetter("entry_points"),
-=======
     "entry-points": _get_previous_entrypoints,
     "scripts": _get_previous_scripts,
     "gui-scripts": _get_previous_gui_scripts,
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     "dependencies": _some_attrgetter("_orig_install_requires", "install_requires"),
     "optional-dependencies": _some_attrgetter("_orig_extras_require", "extras_require"),
 }
 
 
-<<<<<<< HEAD
-class _WouldIgnoreField(UserWarning):
-    """Inform users that ``pyproject.toml`` would overwrite previous metadata."""
-
-    MESSAGE = """\
-    {field!r} defined outside of `pyproject.toml` would be ignored.
-    !!\n\n
-=======
 class _WouldIgnoreField(SetuptoolsDeprecationWarning):
     _SUMMARY = "`{field}` defined outside of `pyproject.toml` would be ignored."
 
     _DETAILS = """
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     ##########################################################################
     # configuration would be ignored/result in error due to `pyproject.toml` #
     ##########################################################################
@@ -457,11 +401,7 @@ class _WouldIgnoreField(SetuptoolsDeprecationWarning):
     `{field} = {value!r}`
 
     According to the spec (see the link below), however, setuptools CANNOT
-<<<<<<< HEAD
-    consider this value unless {field!r} is listed as `dynamic`.
-=======
     consider this value unless `{field}` is listed as `dynamic`.
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
 
@@ -469,21 +409,8 @@ class _WouldIgnoreField(SetuptoolsDeprecationWarning):
     **transitional** measure), but please note that future releases of setuptools will
     follow strictly the standard.
 
-<<<<<<< HEAD
-    To prevent this warning, you can list {field!r} under `dynamic` or alternatively
-    remove the `[project]` table from your file and rely entirely on other means of
-    configuration.
-    \n\n!!
-    """
-
-    @classmethod
-    def message(cls, field, value):
-        from inspect import cleandoc
-        return cleandoc(cls.MESSAGE.format(field=field, value=value))
-=======
     To prevent this warning, you can list `{field}` under `dynamic` or alternatively
     remove the `[project]` table from your file and rely entirely on other means of
     configuration.
     """
     _DUE_DATE = (2023, 10, 30)  # Initially introduced in 27 May 2022
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)

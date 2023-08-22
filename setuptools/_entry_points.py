@@ -54,13 +54,8 @@ def load(eps):
     Given a Distribution.entry_points, produce EntryPoints.
     """
     groups = itertools.chain.from_iterable(
-<<<<<<< HEAD
-        load_group(value, group)
-        for group, value in eps.items())
-=======
         load_group(value, group) for group, value in eps.items()
     )
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     return validate(metadata.EntryPoints(groups))
 
 
@@ -86,22 +81,8 @@ def render(eps: metadata.EntryPoints):
     by_group = operator.attrgetter('group')
     groups = itertools.groupby(sorted(eps, key=by_group), by_group)
 
-<<<<<<< HEAD
-    return '\n'.join(
-        f'[{group}]\n{render_items(items)}\n'
-        for group, items in groups
-    )
-
-
-def render_items(eps):
-    return '\n'.join(
-        f'{ep.name} = {ep.value}'
-        for ep in sorted(eps)
-    )
-=======
     return '\n'.join(f'[{group}]\n{render_items(items)}\n' for group, items in groups)
 
 
 def render_items(eps):
     return '\n'.join(f'{ep.name} = {ep.value}' for ep in sorted(eps))
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)

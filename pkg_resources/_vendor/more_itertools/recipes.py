@@ -9,10 +9,7 @@ Some backward-compatible usability improvements have been made.
 """
 import math
 import operator
-<<<<<<< HEAD
-=======
 import warnings
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 from collections import deque
 from collections.abc import Sized
@@ -25,20 +22,14 @@ from itertools import (
     cycle,
     groupby,
     islice,
-<<<<<<< HEAD
-=======
     product,
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     repeat,
     starmap,
     tee,
     zip_longest,
 )
 from random import randrange, sample, choice
-<<<<<<< HEAD
-=======
 from sys import hexversion
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 __all__ = [
     'all_equal',
@@ -48,18 +39,12 @@ __all__ = [
     'convolve',
     'dotproduct',
     'first_true',
-<<<<<<< HEAD
-    'flatten',
-    'grouper',
-    'iter_except',
-=======
     'factor',
     'flatten',
     'grouper',
     'iter_except',
     'iter_index',
     'matmul',
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     'ncycles',
     'nth',
     'nth_combination',
@@ -83,10 +68,7 @@ __all__ = [
     'tabulate',
     'tail',
     'take',
-<<<<<<< HEAD
-=======
     'transpose',
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     'triplewise',
     'unique_everseen',
     'unique_justseen',
@@ -833,8 +815,6 @@ def polynomial_from_roots(roots):
     ]
 
 
-<<<<<<< HEAD
-=======
 def iter_index(iterable, value, start=0):
     """Yield the index of each place in *iterable* that *value* occurs,
     beginning with index *start*.
@@ -864,7 +844,6 @@ def iter_index(iterable, value, start=0):
             pass
 
 
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 def sieve(n):
     """Yield the primes less than n.
 
@@ -872,15 +851,6 @@ def sieve(n):
     [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
     """
     isqrt = getattr(math, 'isqrt', lambda x: int(math.sqrt(x)))
-<<<<<<< HEAD
-    limit = isqrt(n) + 1
-    data = bytearray([1]) * n
-    data[:2] = 0, 0
-    for p in compress(range(limit), data):
-        data[p + p : n : p] = bytearray(len(range(p + p, n, p)))
-
-    return compress(count(), data)
-=======
     data = bytearray((0, 1)) * (n // 2)
     data[:3] = 0, 0, 0
     limit = isqrt(n) + 1
@@ -888,7 +858,6 @@ def sieve(n):
         data[p * p : n : p + p] = bytes(len(range(p * p, n, p + p)))
     data[2] = 1
     return iter_index(data, 1) if n > 2 else iter([])
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 def batched(iterable, n):
@@ -900,8 +869,6 @@ def batched(iterable, n):
     This recipe is from the ``itertools`` docs. This library also provides
     :func:`chunked`, which has a different implementation.
     """
-<<<<<<< HEAD
-=======
     if hexversion >= 0x30C00A0:  # Python 3.12.0a0
         warnings.warn(
             (
@@ -912,15 +879,12 @@ def batched(iterable, n):
             DeprecationWarning,
         )
 
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     it = iter(iterable)
     while True:
         batch = list(islice(it, n))
         if not batch:
             break
         yield batch
-<<<<<<< HEAD
-=======
 
 
 def transpose(it):
@@ -964,4 +928,3 @@ def factor(n):
                 return
     if n >= 2:
         yield n
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)

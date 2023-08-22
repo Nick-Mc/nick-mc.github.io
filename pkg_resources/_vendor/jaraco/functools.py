@@ -4,10 +4,7 @@ import inspect
 import collections
 import types
 import itertools
-<<<<<<< HEAD
-=======
 import warnings
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 import pkg_resources.extern.more_itertools
 
@@ -270,13 +267,6 @@ def result_invoke(action):
     return wrap
 
 
-<<<<<<< HEAD
-def call_aside(f, *args, **kwargs):
-    """
-    Call a function for its side effect after initialization.
-
-    >>> @call_aside
-=======
 def invoke(f, *args, **kwargs):
     """
     Call a function for its side effect after initialization.
@@ -304,7 +294,6 @@ def invoke(f, *args, **kwargs):
     just fine). The behavior happens immediately and synchronously.
 
     >>> @invoke
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     ... def func(): print("called")
     called
     >>> func()
@@ -312,11 +301,7 @@ def invoke(f, *args, **kwargs):
 
     Use functools.partial to pass parameters to the initial call
 
-<<<<<<< HEAD
-    >>> @functools.partial(call_aside, name='bingo')
-=======
     >>> @functools.partial(invoke, name='bingo')
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     ... def func(name): print("called with", name)
     called with bingo
     """
@@ -324,8 +309,6 @@ def invoke(f, *args, **kwargs):
     return f
 
 
-<<<<<<< HEAD
-=======
 def call_aside(*args, **kwargs):
     """
     Deprecated name for invoke.
@@ -334,7 +317,6 @@ def call_aside(*args, **kwargs):
     return invoke(*args, **kwargs)
 
 
->>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 class Throttler:
     """
     Rate-limit a function (or other callable)
