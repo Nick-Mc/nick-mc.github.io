@@ -4,7 +4,7 @@ git pull origin master
 rm -r docs
 mkdir docs
 cd docs
-echo "nick-mc.github.io" > CNAME
+echo "https://nick-mc.github.io" > CNAME
 cd -
 <<<<<<< HEAD
 ECTO1_SOURCE=http://localhost:2368 ECTO1_TARGET=https://nick-mc.github.io python3 ecto1.py
