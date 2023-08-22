@@ -6,14 +6,21 @@ As defined in the wheel specification
 import os
 import shutil
 import sys
+<<<<<<< HEAD
 import warnings
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 from contextlib import contextmanager
 from distutils import log
 from distutils.core import Command
 from pathlib import Path
 
 from .. import _normalization
+<<<<<<< HEAD
 from .._deprecation_warning import SetuptoolsDeprecationWarning
+=======
+from ..warnings import SetuptoolsDeprecationWarning
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 class dist_info(Command):
@@ -25,11 +32,27 @@ class dist_info(Command):
     description = "DO NOT CALL DIRECTLY, INTERNAL ONLY: create .dist-info directory"
 
     user_options = [
+<<<<<<< HEAD
         ('egg-base=', 'e', "directory containing .egg-info directories"
                            " (default: top of the source tree)"
                            " DEPRECATED: use --output-dir."),
         ('output-dir=', 'o', "directory inside of which the .dist-info will be"
                              "created (default: top of the source tree)"),
+=======
+        (
+            'egg-base=',
+            'e',
+            "directory containing .egg-info directories"
+            " (default: top of the source tree)"
+            " DEPRECATED: use --output-dir.",
+        ),
+        (
+            'output-dir=',
+            'o',
+            "directory inside of which the .dist-info will be"
+            "created (default: top of the source tree)",
+        ),
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         ('tag-date', 'd', "Add date stamp (e.g. 20050528) to version number"),
         ('tag-build=', 'b', "Specify explicit tag to add to version number"),
         ('no-date', 'D', "Don't include date stamp [default]"),
@@ -51,7 +74,13 @@ class dist_info(Command):
     def finalize_options(self):
         if self.egg_base:
             msg = "--egg-base is deprecated for dist_info command. Use --output-dir."
+<<<<<<< HEAD
             warnings.warn(msg, SetuptoolsDeprecationWarning)
+=======
+            SetuptoolsDeprecationWarning.emit(msg, due_date=(2023, 9, 26))
+            # This command is internal to setuptools, therefore it should be safe
+            # to remove the deprecated support soon.
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             self.output_dir = self.egg_base or self.output_dir
 
         dist = self.distribution

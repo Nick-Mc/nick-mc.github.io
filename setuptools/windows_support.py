@@ -17,6 +17,10 @@ def hide_file(path):
     `path` must be text.
     """
     import ctypes
+<<<<<<< HEAD
+=======
+
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     __import__('ctypes.wintypes')
     SetFileAttributes = ctypes.windll.kernel32.SetFileAttributesW
     SetFileAttributes.argtypes = ctypes.wintypes.LPWSTR, ctypes.wintypes.DWORD

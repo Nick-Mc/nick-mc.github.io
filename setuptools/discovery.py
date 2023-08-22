@@ -51,7 +51,11 @@ from typing import (
     Mapping,
     Optional,
     Tuple,
+<<<<<<< HEAD
     Union
+=======
+    Union,
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 )
 
 import _distutils_hack.override  # noqa: F401
@@ -100,7 +104,11 @@ class _Finder:
         cls,
         where: _Path = '.',
         exclude: Iterable[str] = (),
+<<<<<<< HEAD
         include: Iterable[str] = ('*',)
+=======
+        include: Iterable[str] = ('*',),
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     ) -> List[str]:
         """Return a list of all Python items (packages or modules, depending on
         the finder implementation) found within directory 'where'.
@@ -213,11 +221,19 @@ class FlatLayoutPackageFinder(PEP420PackageFinder):
     _EXCLUDE = (
         "ci",
         "bin",
+<<<<<<< HEAD
+=======
+        "debian",
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         "doc",
         "docs",
         "documentation",
         "manpages",
         "news",
+<<<<<<< HEAD
+=======
+        "newsfragments",
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         "changelog",
         "test",
         "tests",
@@ -362,7 +378,12 @@ class ConfigDiscovery:
             self.dist.packages is not None
             or self.dist.py_modules is not None
             or ext_modules
+<<<<<<< HEAD
             or hasattr(self.dist, "configuration") and self.dist.configuration
+=======
+            or hasattr(self.dist, "configuration")
+            and self.dist.configuration
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             # ^ Some projects use numpy.distutils.misc_util.Configuration
         )
 
@@ -554,7 +575,11 @@ def find_parent_package(
     packages = sorted(packages, key=len)
     common_ancestors = []
     for i, name in enumerate(packages):
+<<<<<<< HEAD
         if not all(n.startswith(f"{name}.") for n in packages[i+1:]):
+=======
+        if not all(n.startswith(f"{name}.") for n in packages[i + 1 :]):
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             # Since packages are sorted by length, this condition is able
             # to find a list of all common ancestors.
             # When there is divergence (e.g. multiple root packages)

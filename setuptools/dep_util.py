@@ -11,8 +11,12 @@ def newer_pairwise_group(sources_groups, targets):
     of 'newer_group()'.
     """
     if len(sources_groups) != len(targets):
+<<<<<<< HEAD
         raise ValueError(
             "'sources_group' and 'targets' must be the same length")
+=======
+        raise ValueError("'sources_group' and 'targets' must be the same length")
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     # build a pair of lists (sources_groups, targets) where source is newer
     n_sources = []

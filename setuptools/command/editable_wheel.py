@@ -11,11 +11,18 @@ Create a wheel that, when installed, will make the source package 'editable'
 """
 
 import logging
+<<<<<<< HEAD
+=======
+import io
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 import os
 import shutil
 import sys
 import traceback
+<<<<<<< HEAD
 import warnings
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 from contextlib import suppress
 from enum import Enum
 from inspect import cleandoc
@@ -37,7 +44,10 @@ from typing import (
 
 from .. import (
     Command,
+<<<<<<< HEAD
     SetuptoolsDeprecationWarning,
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     _normalization,
     _path,
     errors,
@@ -45,6 +55,14 @@ from .. import (
 )
 from ..discovery import find_package_path
 from ..dist import Distribution
+<<<<<<< HEAD
+=======
+from ..warnings import (
+    InformationOnly,
+    SetuptoolsDeprecationWarning,
+    SetuptoolsWarning,
+)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 from .build_py import build_py as build_py_cls
 
 if TYPE_CHECKING:
@@ -84,6 +102,7 @@ class _EditableMode(Enum):
             raise errors.OptionError(f"Invalid editable mode: {mode!r}. Try: 'strict'.")
 
         if _mode == "COMPAT":
+<<<<<<< HEAD
             msg = """
             The 'compat' editable mode is transitional and will be removed
             in future versions of `setuptools`.
@@ -94,6 +113,23 @@ class _EditableMode(Enum):
             https://setuptools.pypa.io/en/latest/userguide/development_mode.html
             """
             warnings.warn(msg, SetuptoolsDeprecationWarning)
+=======
+            SetuptoolsDeprecationWarning.emit(
+                "Compat editable installs",
+                """
+                The 'compat' editable mode is transitional and will be removed
+                in future versions of `setuptools`.
+                Please adapt your code accordingly to use either the 'strict' or the
+                'lenient' modes.
+                """,
+                see_docs="userguide/development_mode.html",
+                # TODO: define due_date
+                # There is a series of shortcomings with the available editable install
+                # methods, and they are very controversial. This is something that still
+                # needs work.
+                # Moreover, `pip` is still hiding this warning, so users are not aware.
+            )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
         return _EditableMode[_mode]
 
@@ -148,7 +184,11 @@ class editable_wheel(Command):
         except Exception:
             traceback.print_exc()
             project = self.distribution.name or self.distribution.get_name()
+<<<<<<< HEAD
             _DebuggingTips.warn(project)
+=======
+            _DebuggingTips.emit(project=project)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             raise
 
     def _ensure_dist_info(self):
@@ -289,6 +329,7 @@ class editable_wheel(Command):
         try:
             return self.run_command(cmd_name)
         except Exception:
+<<<<<<< HEAD
             msg = f"""{traceback.format_exc()}\n
             If you are seeing this warning it is very likely that a setuptools
             plugin or customization overrides the `{cmd_name}` command, without
@@ -304,6 +345,31 @@ class editable_wheel(Command):
             the faulty command, but this behaviour will change in future versions.\n
             """
             warnings.warn(msg, SetuptoolsDeprecationWarning, stacklevel=2)
+=======
+            SetuptoolsDeprecationWarning.emit(
+                "Customization incompatible with editable install",
+                f"""
+                {traceback.format_exc()}
+
+                If you are seeing this warning it is very likely that a setuptools
+                plugin or customization overrides the `{cmd_name}` command, without
+                taking into consideration how editable installs run build steps
+                starting from setuptools v64.0.0.
+
+                Plugin authors and developers relying on custom build steps are
+                encouraged to update their `{cmd_name}` implementation considering the
+                information about editable installs in
+                https://setuptools.pypa.io/en/latest/userguide/extension.html.
+
+                For the time being `setuptools` will silence this error and ignore
+                the faulty command, but this behaviour will change in future versions.
+                """,
+                # TODO: define due_date
+                # There is a series of shortcomings with the available editable install
+                # methods, and they are very controversial. This is something that still
+                # needs work.
+            )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     def _create_wheel_file(self, bdist_wheel):
         from wheel.wheelfile import WheelFile
@@ -385,7 +451,11 @@ class _StaticPth:
 
     def __call__(self, wheel: "WheelFile", files: List[str], mapping: Dict[str, str]):
         entries = "\n".join((str(p.resolve()) for p in self.path_entries))
+<<<<<<< HEAD
         contents = bytes(f"{entries}\n", "utf-8")
+=======
+        contents = _encode_pth(f"{entries}\n")
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         wheel.writestr(f"__editable__.{self.name}.pth", contents)
 
     def __enter__(self):
@@ -410,8 +480,15 @@ class _LinkTree(_StaticPth):
     By collocating ``auxiliary_dir`` and the original source code, limitations
     with hardlinks should be avoided.
     """
+<<<<<<< HEAD
     def __init__(
         self, dist: Distribution,
+=======
+
+    def __init__(
+        self,
+        dist: Distribution,
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         name: str,
         auxiliary_dir: _Path,
         build_lib: _Path,
@@ -441,10 +518,14 @@ class _LinkTree(_StaticPth):
     def _create_links(self, outputs, output_mapping):
         self.auxiliary_dir.mkdir(parents=True, exist_ok=True)
         link_type = "sym" if _can_symlink_files(self.auxiliary_dir) else "hard"
+<<<<<<< HEAD
         mappings = {
             self._normalize_output(k): v
             for k, v in output_mapping.items()
         }
+=======
+        mappings = {self._normalize_output(k): v for k, v in output_mapping.items()}
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         mappings.pop(None, None)  # remove files that are not relative to build_lib
 
         for output in outputs:
@@ -468,7 +549,11 @@ class _LinkTree(_StaticPth):
         Please be careful to not remove this directory, otherwise you might not be able
         to import/use your package.
         """
+<<<<<<< HEAD
         warnings.warn(msg, InformationOnly)
+=======
+        InformationOnly.emit("Editable installation.", msg)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 class _TopLevelFinder:
@@ -482,17 +567,30 @@ class _TopLevelFinder:
         package_dir = self.dist.package_dir or {}
         roots = _find_package_roots(top_level, package_dir, src_root)
 
+<<<<<<< HEAD
         namespaces_: Dict[str, List[str]] = dict(chain(
             _find_namespaces(self.dist.packages or [], roots),
             ((ns, []) for ns in _find_virtual_namespaces(roots)),
         ))
+=======
+        namespaces_: Dict[str, List[str]] = dict(
+            chain(
+                _find_namespaces(self.dist.packages or [], roots),
+                ((ns, []) for ns in _find_virtual_namespaces(roots)),
+            )
+        )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
         name = f"__editable__.{self.name}.finder"
         finder = _normalization.safe_identifier(name)
         content = bytes(_finder_template(name, roots, namespaces_), "utf-8")
         wheel.writestr(f"{finder}.py", content)
 
+<<<<<<< HEAD
         content = bytes(f"import {finder}; {finder}.install()", "utf-8")
+=======
+        content = _encode_pth(f"import {finder}; {finder}.install()")
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         wheel.writestr(f"__editable__.{self.name}.pth", content)
 
     def __enter__(self):
@@ -505,7 +603,29 @@ class _TopLevelFinder:
         Please be careful with folders in your working directory with the same
         name as your package as they may take precedence during imports.
         """
+<<<<<<< HEAD
         warnings.warn(msg, InformationOnly)
+=======
+        InformationOnly.emit("Editable installation.", msg)
+
+
+def _encode_pth(content: str) -> bytes:
+    """.pth files are always read with 'locale' encoding, the recommendation
+    from the cpython core developers is to write them as ``open(path, "w")``
+    and ignore warnings (see python/cpython#77102, pypa/setuptools#3937).
+    This function tries to simulate this behaviour without having to create an
+    actual file, in a way that supports a range of active Python versions.
+    (There seems to be some variety in the way different version of Python handle
+    ``encoding=None``, not all of them use ``locale.getpreferredencoding(False)``).
+    """
+    encoding = "locale" if sys.version_info >= (3, 10) else None
+    with io.BytesIO() as buffer:
+        wrapper = io.TextIOWrapper(buffer, encoding)
+        wrapper.write(content)
+        wrapper.flush()
+        buffer.seek(0)
+        return buffer.read()
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 def _can_symlink_files(base_dir: Path) -> bool:
@@ -559,10 +679,14 @@ def _simple_layout(
     >>> _simple_layout([], {"a": "_a", "": "src"}, "/tmp/myproj")
     False
     """
+<<<<<<< HEAD
     layout = {
         pkg: find_package_path(pkg, package_dir, project_dir)
         for pkg in packages
     }
+=======
+    layout = {pkg: find_package_path(pkg, package_dir, project_dir) for pkg in packages}
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     if not layout:
         return set(package_dir) in ({}, {""})
     parent = os.path.commonpath([_parent_path(k, v) for k, v in layout.items()])
@@ -582,7 +706,11 @@ def _parent_path(pkg, pkg_path):
     >>> _parent_path("b", "src/c")
     'src/c'
     """
+<<<<<<< HEAD
     parent = pkg_path[:-len(pkg)] if pkg_path.endswith(pkg) else pkg_path
+=======
+    parent = pkg_path[: -len(pkg)] if pkg_path.endswith(pkg) else pkg_path
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     return parent.rstrip("/" + os.sep)
 
 
@@ -698,9 +826,14 @@ def _is_nested(pkg: str, pkg_path: str, parent: str, parent_path: str) -> bool:
     """
     norm_pkg_path = _path.normpath(pkg_path)
     rest = pkg.replace(parent, "", 1).strip(".").split(".")
+<<<<<<< HEAD
     return (
         pkg.startswith(parent)
         and norm_pkg_path == _path.normpath(Path(parent_path, *rest))
+=======
+    return pkg.startswith(parent) and norm_pkg_path == _path.normpath(
+        Path(parent_path, *rest)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     )
 
 
@@ -731,7 +864,11 @@ class _NamespaceInstaller(namespaces.Installer):
 
 _FINDER_TEMPLATE = """\
 import sys
+<<<<<<< HEAD
 from importlib.machinery import ModuleSpec
+=======
+from importlib.machinery import ModuleSpec, PathFinder
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 from importlib.machinery import all_suffixes as module_suffixes
 from importlib.util import spec_from_file_location
 from itertools import chain
@@ -745,11 +882,28 @@ PATH_PLACEHOLDER = {name!r} + ".__path_hook__"
 class _EditableFinder:  # MetaPathFinder
     @classmethod
     def find_spec(cls, fullname, path=None, target=None):
+<<<<<<< HEAD
         for pkg, pkg_path in reversed(list(MAPPING.items())):
             if fullname == pkg or fullname.startswith(f"{{pkg}}."):
                 rest = fullname.replace(pkg, "", 1).strip(".").split(".")
                 return cls._find_spec(fullname, Path(pkg_path, *rest))
 
+=======
+        # Top-level packages and modules (we know these exist in the FS)
+        if fullname in MAPPING:
+            pkg_path = MAPPING[fullname]
+            return cls._find_spec(fullname, Path(pkg_path))
+
+        # Handle immediate children modules (required for namespaces to work)
+        # To avoid problems with case sensitivity in the file system we delegate
+        # to the importlib.machinery implementation.
+        parent, _, child = fullname.rpartition(".")
+        if parent and parent in MAPPING:
+            return PathFinder.find_spec(fullname, path=[MAPPING[parent]])
+
+        # Other levels of nesting should be handled automatically by importlib
+        # using the parent path.
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         return None
 
     @classmethod
@@ -811,6 +965,7 @@ def _finder_template(
     return _FINDER_TEMPLATE.format(name=name, mapping=mapping, namespaces=namespaces)
 
 
+<<<<<<< HEAD
 class InformationOnly(UserWarning):
     """Currently there is no clear way of displaying messages to the users
     that use the setuptools backend directly via ``pip``.
@@ -819,10 +974,13 @@ class InformationOnly(UserWarning):
     """
 
 
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 class LinksNotSupported(errors.FileError):
     """File system does not seem to support either symlinks or hard links."""
 
 
+<<<<<<< HEAD
 class _DebuggingTips(InformationOnly):
     @classmethod
     def warn(cls, project: str):
@@ -854,3 +1012,29 @@ class _DebuggingTips(InformationOnly):
         """
         # We cannot use `add_notes` since pip hides PEP 678 notes
         warnings.warn(msg, cls, stacklevel=2)
+=======
+class _DebuggingTips(SetuptoolsWarning):
+    _SUMMARY = "Problem in editable installation."
+    _DETAILS = """
+    An error happened while installing `{project}` in editable mode.
+
+    The following steps are recommended to help debug this problem:
+
+    - Try to install the project normally, without using the editable mode.
+      Does the error still persist?
+      (If it does, try fixing the problem before attempting the editable mode).
+    - If you are using binary extensions, make sure you have all OS-level
+      dependencies installed (e.g. compilers, toolchains, binary libraries, ...).
+    - Try the latest version of setuptools (maybe the error was already fixed).
+    - If you (or your project dependencies) are using any setuptools extension
+      or customization, make sure they support the editable mode.
+
+    After following the steps above, if the problem still persists and
+    you think this is related to how setuptools handles editable installations,
+    please submit a reproducible example
+    (see https://stackoverflow.com/help/minimal-reproducible-example) to:
+
+        https://github.com/pypa/setuptools/issues
+    """
+    _SEE_DOCS = "userguide/development_mode.html"
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)

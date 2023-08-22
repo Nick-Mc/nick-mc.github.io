@@ -78,6 +78,11 @@ DEFAULT_RULES: "Dict[str, Union[str, re.Pattern[str]]]" = {
     "AT": r"\@",
     "URL": r"[^ \t]+",
     "IDENTIFIER": r"\b[a-zA-Z0-9][a-zA-Z0-9._-]*\b",
+<<<<<<< HEAD
+=======
+    "VERSION_PREFIX_TRAIL": r"\.\*",
+    "VERSION_LOCAL_LABEL_TRAIL": r"\+[a-z0-9]+(?:[-_\.][a-z0-9]+)*",
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     "WS": r"[ \t]+",
     "END": r"$",
 }
@@ -167,21 +172,35 @@ class Tokenizer:
         )
 
     @contextlib.contextmanager
+<<<<<<< HEAD
     def enclosing_tokens(self, open_token: str, close_token: str) -> Iterator[bool]:
+=======
+    def enclosing_tokens(
+        self, open_token: str, close_token: str, *, around: str
+    ) -> Iterator[None]:
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         if self.check(open_token):
             open_position = self.position
             self.read()
         else:
             open_position = None
 
+<<<<<<< HEAD
         yield open_position is not None
+=======
+        yield
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
         if open_position is None:
             return
 
         if not self.check(close_token):
             self.raise_syntax_error(
+<<<<<<< HEAD
                 f"Expected closing {close_token}",
+=======
+                f"Expected matching {close_token} for {open_token}, after {around}",
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 span_start=open_position,
             )
 

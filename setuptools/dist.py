@@ -4,7 +4,10 @@ import io
 import sys
 import re
 import os
+<<<<<<< HEAD
 import warnings
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 import numbers
 import distutils.log
 import distutils.core
@@ -31,10 +34,13 @@ from setuptools.extern import packaging
 from setuptools.extern import ordered_set
 from setuptools.extern.more_itertools import unique_everseen, partition
 
+<<<<<<< HEAD
 from ._importlib import metadata
 
 from . import SetuptoolsDeprecationWarning, _normalization
 
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 import setuptools
 import setuptools.command
 from setuptools import windows_support
@@ -45,6 +51,12 @@ from setuptools.discovery import ConfigDiscovery
 from setuptools.extern.packaging import version
 from . import _reqs
 from . import _entry_points
+<<<<<<< HEAD
+=======
+from . import _normalization
+from ._importlib import metadata
+from .warnings import InformationOnly, SetuptoolsDeprecationWarning
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 if TYPE_CHECKING:
     from email.message import Message
@@ -53,11 +65,14 @@ __import__('setuptools.extern.packaging.specifiers')
 __import__('setuptools.extern.packaging.version')
 
 
+<<<<<<< HEAD
 def _get_unpatched(cls):
     warnings.warn("Do not call this function", DistDeprecationWarning)
     return get_unpatched(cls)
 
 
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 def get_metadata_version(self):
     mv = getattr(self, 'metadata_version', None)
     if mv is None:
@@ -123,9 +138,14 @@ def read_pkg_file(self, file):
     self.license = _read_field_unescaped_from_msg(msg, 'license')
 
     self.long_description = _read_field_unescaped_from_msg(msg, 'description')
+<<<<<<< HEAD
     if (
         self.long_description is None and
         self.metadata_version >= version.Version('2.1')
+=======
+    if self.long_description is None and self.metadata_version >= version.Version(
+        '2.1'
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     ):
         self.long_description = _read_payload_from_msg(msg)
     self.description = _read_field_from_msg(msg, 'summary')
@@ -156,7 +176,13 @@ def single_line(val):
     if '\n' in val:
         # TODO: Replace with `raise ValueError("newlines not allowed")`
         # after reviewing #2893.
+<<<<<<< HEAD
         warnings.warn("newlines not allowed and will break in the future")
+=======
+        msg = "newlines are not allowed in `summary` and will break in the future"
+        SetuptoolsDeprecationWarning.emit("Invalid config.", msg)
+        # due_date is undefined. Controversial change, there was a lot of push back.
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         val = val.strip().split('\n')[0]
     return val
 
@@ -278,6 +304,7 @@ def check_nsp(dist, attr, value):
                 nsp,
                 parent,
             )
+<<<<<<< HEAD
         msg = (
             "The namespace_packages parameter is deprecated, "
             "consider using implicit namespaces instead (PEP 420). "
@@ -285,6 +312,17 @@ def check_nsp(dist, attr, value):
             "keywords.html#keyword-namespace-packages"
         )
         warnings.warn(msg, SetuptoolsDeprecationWarning)
+=======
+        SetuptoolsDeprecationWarning.emit(
+            "The namespace_packages parameter is deprecated.",
+            "Please replace its usage with implicit namespaces (PEP 420).",
+            see_docs="references/keywords.html#keyword-namespace-packages"
+            # TODO: define due_date, it may break old packages that are no longer
+            # maintained (e.g. sphinxcontrib extensions) when installed from source.
+            # Warning officially introduced in May 2022, however the deprecation
+            # was mentioned much earlier in the docs (May 2020, see #2149).
+        )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 def check_extras(dist, attr, value):
@@ -325,7 +363,12 @@ def assert_bool(dist, attr, value):
 
 def invalid_unless_false(dist, attr, value):
     if not value:
+<<<<<<< HEAD
         warnings.warn(f"{attr} is ignored.", DistDeprecationWarning)
+=======
+        DistDeprecationWarning.emit(f"{attr} is ignored.")
+        # TODO: should there be a `due_date` here?
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         return
     raise DistutilsSetupError(f"{attr} is invalid.")
 
@@ -543,8 +586,12 @@ class Distribution(_Distribution):
 
         normalized = str(packaging.version.Version(version))
         if version != normalized:
+<<<<<<< HEAD
             tmpl = "Normalizing '{version}' to '{normalized}'"
             warnings.warn(tmpl.format(**locals()))
+=======
+            InformationOnly.emit(f"Normalizing '{version}' to '{normalized}'")
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             return normalized
         return version
 
@@ -558,11 +605,25 @@ class Distribution(_Distribution):
             try:
                 packaging.version.Version(version)
             except (packaging.version.InvalidVersion, TypeError):
+<<<<<<< HEAD
                 warnings.warn(
                     "The version specified (%r) is an invalid version, this "
                     "may not work as expected with newer versions of "
                     "setuptools, pip, and PyPI. Please see PEP 440 for more "
                     "details." % version
+=======
+                SetuptoolsDeprecationWarning.emit(
+                    f"Invalid version: {version!r}.",
+                    """
+                    The version specified is not a valid version according to PEP 440.
+                    This may not work as expected with newer versions of
+                    setuptools, pip, and PyPI.
+                    """,
+                    see_url="https://peps.python.org/pep-0440/",
+                    due_date=(2023, 9, 26),
+                    # Warning initially introduced in 26 Sept 2014
+                    # pypa/packaging already removed legacy versions.
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 )
                 return setuptools.sic(version)
         return version
@@ -753,7 +814,11 @@ class Distribution(_Distribution):
         # If there was a "global" section in the config file, use it
         # to set Distribution options.
 
+<<<<<<< HEAD
         for (opt, (src, val)) in self.command_options['global'].items():
+=======
+        for opt, (src, val) in self.command_options['global'].items():
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             alias = self.negative_opt.get(opt)
             if alias:
                 val = not strtobool(val)
@@ -773,10 +838,19 @@ class Distribution(_Distribution):
             return opt
 
         underscore_opt = opt.replace('-', '_')
+<<<<<<< HEAD
         commands = list(itertools.chain(
             distutils.command.__all__,
             self._setuptools_commands(),
         ))
+=======
+        commands = list(
+            itertools.chain(
+                distutils.command.__all__,
+                self._setuptools_commands(),
+            )
+        )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         if (
             not section.startswith('options')
             and section != 'metadata'
@@ -785,10 +859,22 @@ class Distribution(_Distribution):
             return underscore_opt
 
         if '-' in opt:
+<<<<<<< HEAD
             warnings.warn(
                 "Usage of dash-separated '%s' will not be supported in future "
                 "versions. Please use the underscore name '%s' instead"
                 % (opt, underscore_opt)
+=======
+            SetuptoolsDeprecationWarning.emit(
+                "Invalid dash-separated options",
+                f"""
+                Usage of dash-separated {opt!r} will not be supported in future
+                versions. Please use the underscore name {underscore_opt!r} instead.
+                """,
+                see_docs="userguide/declarative_config.html",
+                due_date=(2023, 9, 26),
+                # Warning initially introduced in 3 Mar 2021
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             )
         return underscore_opt
 
@@ -804,10 +890,22 @@ class Distribution(_Distribution):
             return opt
 
         lowercase_opt = opt.lower()
+<<<<<<< HEAD
         warnings.warn(
             "Usage of uppercase key '%s' in '%s' will be deprecated in future "
             "versions. Please use lowercase '%s' instead"
             % (opt, section, lowercase_opt)
+=======
+        SetuptoolsDeprecationWarning.emit(
+            "Invalid uppercase configuration",
+            f"""
+            Usage of uppercase key {opt!r} in {section!r} will not be supported in
+            future versions. Please use lowercase {lowercase_opt!r} instead.
+            """,
+            see_docs="userguide/declarative_config.html",
+            due_date=(2023, 9, 26),
+            # Warning initially introduced in 6 Mar 2021
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         )
         return lowercase_opt
 
@@ -830,7 +928,11 @@ class Distribution(_Distribution):
 
         if DEBUG:
             self.announce("  setting options for '%s' command:" % command_name)
+<<<<<<< HEAD
         for (option, (source, value)) in option_dict.items():
+=======
+        for option, (source, value) in option_dict.items():
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             if DEBUG:
                 self.announce("    %s = %s (from %s)" % (option, value, source))
             try:
@@ -1140,9 +1242,13 @@ class Distribution(_Distribution):
         d = {}
 
         for cmd, opts in self.command_options.items():
+<<<<<<< HEAD
 
             for opt, (src, val) in opts.items():
 
+=======
+            for opt, (src, val) in opts.items():
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 if src != "command line":
                     continue
 

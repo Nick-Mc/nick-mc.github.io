@@ -163,7 +163,15 @@ def _parse_extras(tokenizer: Tokenizer) -> List[str]:
     if not tokenizer.check("LEFT_BRACKET", peek=True):
         return []
 
+<<<<<<< HEAD
     with tokenizer.enclosing_tokens("LEFT_BRACKET", "RIGHT_BRACKET"):
+=======
+    with tokenizer.enclosing_tokens(
+        "LEFT_BRACKET",
+        "RIGHT_BRACKET",
+        around="extras",
+    ):
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         tokenizer.consume("WS")
         extras = _parse_extras_list(tokenizer)
         tokenizer.consume("WS")
@@ -203,7 +211,15 @@ def _parse_specifier(tokenizer: Tokenizer) -> str:
     specifier = LEFT_PARENTHESIS WS? version_many WS? RIGHT_PARENTHESIS
               | WS? version_many WS?
     """
+<<<<<<< HEAD
     with tokenizer.enclosing_tokens("LEFT_PARENTHESIS", "RIGHT_PARENTHESIS"):
+=======
+    with tokenizer.enclosing_tokens(
+        "LEFT_PARENTHESIS",
+        "RIGHT_PARENTHESIS",
+        around="version specifier",
+    ):
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         tokenizer.consume("WS")
         parsed_specifiers = _parse_version_many(tokenizer)
         tokenizer.consume("WS")
@@ -217,7 +233,24 @@ def _parse_version_many(tokenizer: Tokenizer) -> str:
     """
     parsed_specifiers = ""
     while tokenizer.check("SPECIFIER"):
+<<<<<<< HEAD
         parsed_specifiers += tokenizer.read().text
+=======
+        span_start = tokenizer.position
+        parsed_specifiers += tokenizer.read().text
+        if tokenizer.check("VERSION_PREFIX_TRAIL", peek=True):
+            tokenizer.raise_syntax_error(
+                ".* suffix can only be used with `==` or `!=` operators",
+                span_start=span_start,
+                span_end=tokenizer.position + 1,
+            )
+        if tokenizer.check("VERSION_LOCAL_LABEL_TRAIL", peek=True):
+            tokenizer.raise_syntax_error(
+                "Local version label can only be used with `==` or `!=` operators",
+                span_start=span_start,
+                span_end=tokenizer.position,
+            )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         tokenizer.consume("WS")
         if not tokenizer.check("COMMA"):
             break
@@ -254,7 +287,15 @@ def _parse_marker_atom(tokenizer: Tokenizer) -> MarkerAtom:
 
     tokenizer.consume("WS")
     if tokenizer.check("LEFT_PARENTHESIS", peek=True):
+<<<<<<< HEAD
         with tokenizer.enclosing_tokens("LEFT_PARENTHESIS", "RIGHT_PARENTHESIS"):
+=======
+        with tokenizer.enclosing_tokens(
+            "LEFT_PARENTHESIS",
+            "RIGHT_PARENTHESIS",
+            around="marker expression",
+        ):
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             tokenizer.consume("WS")
             marker: MarkerAtom = _parse_marker(tokenizer)
             tokenizer.consume("WS")

@@ -8,7 +8,18 @@ import platform
 import sys
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
+<<<<<<< HEAD
 from ._parser import MarkerAtom, MarkerList, Op, Value, Variable, parse_marker
+=======
+from ._parser import (
+    MarkerAtom,
+    MarkerList,
+    Op,
+    Value,
+    Variable,
+    parse_marker as _parse_marker,
+)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 from ._tokenizer import ParserSyntaxError
 from .specifiers import InvalidSpecifier, Specifier
 from .utils import canonicalize_name
@@ -189,7 +200,11 @@ class Marker:
         #       packaging.requirements.Requirement. If any additional logic is
         #       added here, make sure to mirror/adapt Requirement.
         try:
+<<<<<<< HEAD
             self._markers = _normalize_extra_values(parse_marker(marker))
+=======
+            self._markers = _normalize_extra_values(_parse_marker(marker))
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             # The attribute `_markers` can be described in terms of a recursive type:
             # MarkerList = List[Union[Tuple[Node, ...], str, MarkerList]]
             #

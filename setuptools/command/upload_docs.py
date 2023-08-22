@@ -16,10 +16,16 @@ import itertools
 import functools
 import http.client
 import urllib.parse
+<<<<<<< HEAD
 import warnings
 
 from .._importlib import metadata
 from .. import SetuptoolsDeprecationWarning
+=======
+
+from .._importlib import metadata
+from ..warnings import SetuptoolsDeprecationWarning
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 from .upload import upload
 
@@ -36,10 +42,19 @@ class upload_docs(upload):
     description = 'Upload documentation to sites other than PyPi such as devpi'
 
     user_options = [
+<<<<<<< HEAD
         ('repository=', 'r',
          "url of repository [default: %s]" % upload.DEFAULT_REPOSITORY),
         ('show-response', None,
          'display full response text from server'),
+=======
+        (
+            'repository=',
+            'r',
+            "url of repository [default: %s]" % upload.DEFAULT_REPOSITORY,
+        ),
+        ('show-response', None, 'display full response text from server'),
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         ('upload-dir=', None, 'directory to upload'),
     ]
     boolean_options = upload.boolean_options
@@ -60,7 +75,12 @@ class upload_docs(upload):
     def finalize_options(self):
         log.warn(
             "Upload_docs command is deprecated. Use Read the Docs "
+<<<<<<< HEAD
             "(https://readthedocs.org) instead.")
+=======
+            "(https://readthedocs.org) instead."
+        )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         upload.finalize_options(self)
         if self.upload_dir is None:
             if self.has_sphinx():
@@ -84,17 +104,32 @@ class upload_docs(upload):
                     raise DistutilsOptionError(tmpl % self.target_dir)
                 for name in files:
                     full = os.path.join(root, name)
+<<<<<<< HEAD
                     relative = root[len(self.target_dir):].lstrip(os.path.sep)
+=======
+                    relative = root[len(self.target_dir) :].lstrip(os.path.sep)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                     dest = os.path.join(relative, name)
                     zip_file.write(full, dest)
         finally:
             zip_file.close()
 
     def run(self):
+<<<<<<< HEAD
         warnings.warn(
             "upload_docs is deprecated and will be removed in a future "
             "version. Use tools like httpie or curl instead.",
             SetuptoolsDeprecationWarning,
+=======
+        SetuptoolsDeprecationWarning.emit(
+            "Deprecated command",
+            """
+            upload_docs is deprecated and will be removed in a future version.
+            Instead, use tools like devpi and Read the Docs; or lower level tools like
+            httpie and curl to interact directly with your hosting service API.
+            """,
+            due_date=(2023, 9, 26),  # warning introduced in 27 Jul 2022
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         )
 
         # Run sub commands
@@ -138,7 +173,14 @@ class upload_docs(upload):
         boundary = '--------------GHSKFJDLGDS7543FJKLFHRE75642756743254'
         sep_boundary = b'\n--' + boundary.encode('ascii')
         end_boundary = sep_boundary + b'--'
+<<<<<<< HEAD
         end_items = end_boundary, b"\n",
+=======
+        end_items = (
+            end_boundary,
+            b"\n",
+        )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         builder = functools.partial(
             cls._build_part,
             sep_boundary=sep_boundary,
@@ -171,8 +213,14 @@ class upload_docs(upload):
         # build the Request
         # We can't use urllib2 since we need to send the Basic
         # auth right with the first request
+<<<<<<< HEAD
         schema, netloc, url, params, query, fragments = \
             urllib.parse.urlparse(self.repository)
+=======
+        schema, netloc, url, params, query, fragments = urllib.parse.urlparse(
+            self.repository
+        )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         assert not params and not query and not fragments
         if schema == 'http':
             conn = http.client.HTTPConnection(netloc)

@@ -35,7 +35,11 @@ class Downloader:
 		self.private_site_password = None
 		self.rss_override_url = None
 		self.preauth_url = None
+<<<<<<< HEAD
 		self.preauth_base64_data = None
+=======
+		selfself.target_path_root = pathlib.Path(os.getcwd()) / 'docs'.preauth_base64_data = None
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 	def set_private_mode(self, password, rss_override_url):
 		self.private_site_password = password

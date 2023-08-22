@@ -2,6 +2,7 @@
 Load setuptools configuration from ``pyproject.toml`` files.
 
 **PRIVATE MODULE**: API reserved for setuptools internal usage only.
+<<<<<<< HEAD
 """
 import logging
 import os
@@ -15,6 +16,25 @@ from setuptools.errors import FileError, OptionError
 from . import expand as _expand
 from ._apply_pyprojecttoml import apply as _apply
 from ._apply_pyprojecttoml import _PREVIOUSLY_DEFINED, _WouldIgnoreField
+=======
+
+To read project metadata, consider using
+``build.util.project_wheel_metadata`` (https://pypi.org/project/build/).
+For simple scenarios, you can also try parsing the file directly
+with the help of ``tomllib`` or ``tomli``.
+"""
+import logging
+import os
+from contextlib import contextmanager
+from functools import partial
+from typing import TYPE_CHECKING, Callable, Dict, Mapping, Optional, Set, Union
+
+from ..errors import FileError, OptionError
+from ..warnings import SetuptoolsWarning
+from . import expand as _expand
+from ._apply_pyprojecttoml import _PREVIOUSLY_DEFINED, _WouldIgnoreField
+from ._apply_pyprojecttoml import apply as _apply
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 if TYPE_CHECKING:
     from setuptools.dist import Distribution  # noqa
@@ -102,16 +122,24 @@ def read_configuration(
     if not asdict or not (project_table or setuptools_table):
         return {}  # User is not using pyproject to configure setuptools
 
+<<<<<<< HEAD
     if setuptools_table:
         # TODO: Remove the following once the feature stabilizes:
         msg = "Support for `[tool.setuptools]` in `pyproject.toml` is still *beta*."
         warnings.warn(msg, _BetaConfiguration)
+=======
+    if "distutils" in tool_table:
+        _ExperimentalConfiguration.emit(subject="[tool.distutils]")
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     # There is an overall sense in the community that making include_package_data=True
     # the default would be an improvement.
     # `ini2toml` backfills include_package_data=False when nothing is explicitly given,
     # therefore setting a default here is backwards compatible.
+<<<<<<< HEAD
     orig_setuptools_table = setuptools_table.copy()
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     if dist and getattr(dist, "include_package_data", None) is not None:
         setuptools_table.setdefault("include-package-data", dist.include_package_data)
     else:
@@ -120,6 +148,7 @@ def read_configuration(
     asdict["tool"] = tool_table
     tool_table["setuptools"] = setuptools_table
 
+<<<<<<< HEAD
     try:
         # Don't complain about unrelated errors (e.g. tools not using the "tool" table)
         subset = {"project": project_table, "tool": {"setuptools": setuptools_table}}
@@ -134,6 +163,12 @@ def read_configuration(
             _logger.debug(f"ignored error: {ex.__class__.__name__} - {ex}")
         else:
             raise  # re-raise exception
+=======
+    with _ignore_errors(ignore_option_errors):
+        # Don't complain about unrelated errors (e.g. tools not using the "tool" table)
+        subset = {"project": project_table, "tool": {"setuptools": setuptools_table}}
+        validate(subset, filepath)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     if expand:
         root_dir = os.path.dirname(filepath)
@@ -142,6 +177,7 @@ def read_configuration(
     return asdict
 
 
+<<<<<<< HEAD
 def _skip_bad_config(
     project_cfg: dict, setuptools_cfg: dict, dist: Optional["Distribution"]
 ) -> bool:
@@ -172,6 +208,8 @@ def _skip_bad_config(
     return False
 
 
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 def expand_configuration(
     config: dict,
     root_dir: Optional[_Path] = None,
@@ -369,8 +407,12 @@ class _ConfigExpander:
             if group in groups:
                 value = groups.pop(group)
                 if field not in self.dynamic:
+<<<<<<< HEAD
                     msg = _WouldIgnoreField.message(field, value)
                     warnings.warn(msg, _WouldIgnoreField)
+=======
+                    _WouldIgnoreField.emit(field=field, value=value)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 # TODO: Don't set field when support for pyproject.toml stabilizes
                 #       instead raise an error as specified in PEP 621
                 expanded[field] = value
@@ -401,11 +443,21 @@ class _ConfigExpander:
             optional_dependencies_map = self.dynamic_cfg["optional-dependencies"]
             assert isinstance(optional_dependencies_map, dict)
             return {
+<<<<<<< HEAD
                 group: _parse_requirements_list(self._expand_directive(
                     f"tool.setuptools.dynamic.optional-dependencies.{group}",
                     directive,
                     {},
                 ))
+=======
+                group: _parse_requirements_list(
+                    self._expand_directive(
+                        f"tool.setuptools.dynamic.optional-dependencies.{group}",
+                        directive,
+                        {},
+                    )
+                )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 for group, directive in optional_dependencies_map.items()
             }
         self._ensure_previously_set(dist, "optional-dependencies")
@@ -472,6 +524,7 @@ class _EnsurePackagesDiscovered(_expand.EnsurePackagesDiscovered):
         return super().__exit__(exc_type, exc_value, traceback)
 
 
+<<<<<<< HEAD
 class _BetaConfiguration(UserWarning):
     """Explicitly inform users that some `pyproject.toml` configuration is *beta*"""
 
@@ -496,3 +549,10 @@ class _InvalidFile(UserWarning):
     def message(cls):
         from inspect import cleandoc
         return cleandoc(cls.__doc__)
+=======
+class _ExperimentalConfiguration(SetuptoolsWarning):
+    _SUMMARY = (
+        "`{subject}` in `pyproject.toml` is still *experimental* "
+        "and likely to change in future releases."
+    )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)

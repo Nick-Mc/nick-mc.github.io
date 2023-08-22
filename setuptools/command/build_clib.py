@@ -21,13 +21,22 @@ class build_clib(orig.build_clib):
     """
 
     def build_libraries(self, libraries):
+<<<<<<< HEAD
         for (lib_name, build_info) in libraries:
+=======
+        for lib_name, build_info in libraries:
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             sources = build_info.get('sources')
             if sources is None or not isinstance(sources, (list, tuple)):
                 raise DistutilsSetupError(
                     "in 'libraries' option (library '%s'), "
                     "'sources' must be present and must be "
+<<<<<<< HEAD
                     "a list of source filenames" % lib_name)
+=======
+                    "a list of source filenames" % lib_name
+                )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             sources = sorted(list(sources))
 
             log.info("building '%s' library", lib_name)
@@ -40,7 +49,12 @@ class build_clib(orig.build_clib):
                 raise DistutilsSetupError(
                     "in 'libraries' option (library '%s'), "
                     "'obj_deps' must be a dictionary of "
+<<<<<<< HEAD
                     "type 'source: list'" % lib_name)
+=======
+                    "type 'source: list'" % lib_name
+                )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             dependencies = []
 
             # Get the global dependencies that are specified by the '' key.
@@ -50,7 +64,12 @@ class build_clib(orig.build_clib):
                 raise DistutilsSetupError(
                     "in 'libraries' option (library '%s'), "
                     "'obj_deps' must be a dictionary of "
+<<<<<<< HEAD
                     "type 'source: list'" % lib_name)
+=======
+                    "type 'source: list'" % lib_name
+                )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
             # Build the list to be used by newer_pairwise_group
             # each source will be auto-added to its dependencies.
@@ -62,7 +81,12 @@ class build_clib(orig.build_clib):
                     raise DistutilsSetupError(
                         "in 'libraries' option (library '%s'), "
                         "'obj_deps' must be a dictionary of "
+<<<<<<< HEAD
                         "type 'source: list'" % lib_name)
+=======
+                        "type 'source: list'" % lib_name
+                    )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 src_deps.extend(extra_deps)
                 dependencies.append(src_deps)
 
@@ -71,10 +95,14 @@ class build_clib(orig.build_clib):
                 output_dir=self.build_temp,
             )
 
+<<<<<<< HEAD
             if (
                 newer_pairwise_group(dependencies, expected_objects)
                 != ([], [])
             ):
+=======
+            if newer_pairwise_group(dependencies, expected_objects) != ([], []):
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 # First, compile the source code to object files in the library
                 # directory.  (This should probably change to putting object
                 # files in a temporary build directory.)
@@ -87,15 +115,23 @@ class build_clib(orig.build_clib):
                     macros=macros,
                     include_dirs=include_dirs,
                     extra_postargs=cflags,
+<<<<<<< HEAD
                     debug=self.debug
+=======
+                    debug=self.debug,
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 )
 
             # Now "link" the object files together into a static library.
             # (On Unix at least, this isn't really linking -- it just
             # builds an archive.  Whatever.)
             self.compiler.create_static_lib(
+<<<<<<< HEAD
                 expected_objects,
                 lib_name,
                 output_dir=self.build_clib,
                 debug=self.debug
+=======
+                expected_objects, lib_name, output_dir=self.build_clib, debug=self.debug
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             )

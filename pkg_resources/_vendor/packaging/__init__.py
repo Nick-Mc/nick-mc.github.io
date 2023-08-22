@@ -6,7 +6,11 @@ __title__ = "packaging"
 __summary__ = "Core utilities for Python packages"
 __uri__ = "https://github.com/pypa/packaging"
 
+<<<<<<< HEAD
 __version__ = "23.0"
+=======
+__version__ = "23.1"
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 __author__ = "Donald Stufft and individual contributors"
 __email__ = "donald@stufft.io"

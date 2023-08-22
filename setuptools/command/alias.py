@@ -49,7 +49,11 @@ class alias(option_base):
             return
 
         elif len(self.args) == 1:
+<<<<<<< HEAD
             alias, = self.args
+=======
+            (alias,) = self.args
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             if self.remove:
                 command = None
             elif alias in aliases:

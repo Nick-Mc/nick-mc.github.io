@@ -9,7 +9,10 @@ import socket
 import base64
 import hashlib
 import itertools
+<<<<<<< HEAD
 import warnings
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 import configparser
 import html
 import http.client
@@ -196,7 +199,11 @@ def interpret_distro_name(
         '-'.join(parts[p:]),
         py_version=py_version,
         precedence=precedence,
+<<<<<<< HEAD
         platform=platform
+=======
+        platform=platform,
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     )
 
 
@@ -306,7 +313,11 @@ class PackageIndex(Environment):
         ca_bundle=None,
         verify_ssl=True,
         *args,
+<<<<<<< HEAD
         **kw
+=======
+        **kw,
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     ):
         super().__init__(*args, **kw)
         self.index_url = index_url + "/"[: not index_url.endswith('/')]
@@ -402,7 +413,12 @@ class PackageIndex(Environment):
             return True
         msg = (
             "\nNote: Bypassing %s (disallowed host; see "
+<<<<<<< HEAD
             "http://bit.ly/2hrImnY for details).\n"
+=======
+            "https://setuptools.pypa.io/en/latest/deprecated/"
+            "easy_install.html#restricting-downloads-with-allow-hosts for details).\n"
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         )
         if fatal:
             raise DistutilsError(msg % url)
@@ -634,7 +650,10 @@ class PackageIndex(Environment):
             # Find a matching distribution; may be called more than once
 
             for dist in env[req.key]:
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 if dist.precedence == DEVELOP_DIST and not develop_ok:
                     if dist not in skipped:
                         self.warn(
@@ -848,6 +867,7 @@ class PackageIndex(Environment):
     def _attempt_download(self, url, filename):
         headers = self._download_to(url, filename)
         if 'html' in headers.get('content-type', '').lower():
+<<<<<<< HEAD
             return self._download_html(url, headers, filename)
         else:
             return filename
@@ -888,6 +908,18 @@ class PackageIndex(Environment):
         self.info("Doing subversion checkout from %s to %s", url, filename)
         os.system("svn checkout%s -q %s %s" % (creds, url, filename))
         return filename
+=======
+            return self._invalid_download_html(url, headers, filename)
+        else:
+            return filename
+
+    def _invalid_download_html(self, url, headers, filename):
+        os.unlink(filename)
+        raise DistutilsError(f"Unexpected HTML page found at {url}")
+
+    def _download_svn(self, url, _filename):
+        raise DistutilsError(f"Invalid config, SVN download is not supported: {url}")
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
     @staticmethod
     def _vcs_split_rev_from_url(url, pop_prefix=False):

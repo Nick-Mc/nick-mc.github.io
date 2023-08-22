@@ -5,7 +5,11 @@
 import urllib.parse
 from typing import Any, List, Optional, Set
 
+<<<<<<< HEAD
 from ._parser import parse_requirement
+=======
+from ._parser import parse_requirement as _parse_requirement
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 from ._tokenizer import ParserSyntaxError
 from .markers import Marker, _normalize_extra_values
 from .specifiers import SpecifierSet
@@ -32,7 +36,11 @@ class Requirement:
 
     def __init__(self, requirement_string: str) -> None:
         try:
+<<<<<<< HEAD
             parsed = parse_requirement(requirement_string)
+=======
+            parsed = _parse_requirement(requirement_string)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         except ParserSyntaxError as e:
             raise InvalidRequirement(str(e)) from e
 

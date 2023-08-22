@@ -37,9 +37,13 @@ class rotate(Command):
         except ValueError as e:
             raise DistutilsOptionError("--keep must be an integer") from e
         if isinstance(self.match, str):
+<<<<<<< HEAD
             self.match = [
                 convert_path(p.strip()) for p in self.match.split(',')
             ]
+=======
+            self.match = [convert_path(p.strip()) for p in self.match.split(',')]
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         self.set_undefined_options('bdist', ('dist_dir', 'dist_dir'))
 
     def run(self):
@@ -54,8 +58,13 @@ class rotate(Command):
             files.reverse()
 
             log.info("%d file(s) matching %s", len(files), pattern)
+<<<<<<< HEAD
             files = files[self.keep:]
             for (t, f) in files:
+=======
+            files = files[self.keep :]
+            for t, f in files:
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
                 log.info("Deleting %s", f)
                 if not self.dry_run:
                     if os.path.isdir(f):

@@ -142,7 +142,11 @@ class DistutilsMetaFinder:
         Ensure stdlib distutils when running under pip.
         See pypa/pip#8761 for rationale.
         """
+<<<<<<< HEAD
         if self.pip_imported_during_build():
+=======
+        if sys.version_info >= (3, 12) or self.pip_imported_during_build():
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             return
         clear_distutils()
         self.spec_for_distutils = lambda: None
@@ -208,15 +212,31 @@ class shim:
         insert_shim()
 
     def __exit__(self, exc, value, tb):
+<<<<<<< HEAD
         remove_shim()
+=======
+        _remove_shim()
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 def insert_shim():
     sys.meta_path.insert(0, DISTUTILS_FINDER)
 
 
+<<<<<<< HEAD
 def remove_shim():
+=======
+def _remove_shim():
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     try:
         sys.meta_path.remove(DISTUTILS_FINDER)
     except ValueError:
         pass
+<<<<<<< HEAD
+=======
+
+
+if sys.version_info < (3, 12):
+    # DistutilsMetaFinder can only be disabled in Python < 3.12 (PEP 632)
+    remove_shim = _remove_shim
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)

@@ -1,11 +1,18 @@
 from distutils.errors import DistutilsArgError
 import inspect
 import glob
+<<<<<<< HEAD
 import warnings
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 import platform
 import distutils.command.install as orig
 
 import setuptools
+<<<<<<< HEAD
+=======
+from ..warnings import SetuptoolsDeprecationWarning, SetuptoolsWarning
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 # Prior to numpy 1.9, NumPy relies on the '_install' name, so provide it for
 # now. See https://github.com/pypa/setuptools/issues/199/
@@ -17,11 +24,23 @@ class install(orig.install):
 
     user_options = orig.install.user_options + [
         ('old-and-unmanageable', None, "Try not to use this!"),
+<<<<<<< HEAD
         ('single-version-externally-managed', None,
          "used by system package builders to create 'flat' eggs"),
     ]
     boolean_options = orig.install.boolean_options + [
         'old-and-unmanageable', 'single-version-externally-managed',
+=======
+        (
+            'single-version-externally-managed',
+            None,
+            "used by system package builders to create 'flat' eggs",
+        ),
+    ]
+    boolean_options = orig.install.boolean_options + [
+        'old-and-unmanageable',
+        'single-version-externally-managed',
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     ]
     new_commands = [
         ('install_egg_info', lambda self: True),
@@ -30,11 +49,25 @@ class install(orig.install):
     _nc = dict(new_commands)
 
     def initialize_options(self):
+<<<<<<< HEAD
 
         warnings.warn(
             "setup.py install is deprecated. "
             "Use build and pip and other standards-based tools.",
             setuptools.SetuptoolsDeprecationWarning,
+=======
+        SetuptoolsDeprecationWarning.emit(
+            "setup.py install is deprecated.",
+            """
+            Please avoid running ``setup.py`` directly.
+            Instead, use pypa/build, pypa/installer or other
+            standards-based tools.
+            """,
+            see_url="https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html",
+            # TODO: Document how to bootstrap setuptools without install
+            #       (e.g. by unziping the wheel file)
+            #       and then add a due_date to this warning.
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         )
 
         orig.install.initialize_options(self)
@@ -86,15 +119,26 @@ class install(orig.install):
         """
         if run_frame is None:
             msg = "Call stack not available. bdist_* commands may fail."
+<<<<<<< HEAD
             warnings.warn(msg)
             if platform.python_implementation() == 'IronPython':
                 msg = "For best results, pass -X:Frames to enable call stack."
                 warnings.warn(msg)
+=======
+            SetuptoolsWarning.emit(msg)
+            if platform.python_implementation() == 'IronPython':
+                msg = "For best results, pass -X:Frames to enable call stack."
+                SetuptoolsWarning.emit(msg)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             return True
 
         frames = inspect.getouterframes(run_frame)
         for frame in frames[2:4]:
+<<<<<<< HEAD
             caller, = frame[:1]
+=======
+            (caller,) = frame[:1]
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
             info = inspect.getframeinfo(caller)
             caller_module = caller.f_globals.get('__name__', '')
 
@@ -102,6 +146,7 @@ class install(orig.install):
                 # Starting from v61.0.0 setuptools overwrites dist.run_command
                 continue
 
+<<<<<<< HEAD
             return (
                 caller_module == 'distutils.dist'
                 and info.function == 'run_commands'
@@ -113,6 +158,18 @@ class install(orig.install):
 
         cmd = easy_install(
             self.distribution, args="x", root=self.root, record=self.record,
+=======
+            return caller_module == 'distutils.dist' and info.function == 'run_commands'
+
+    def do_egg_install(self):
+        easy_install = self.distribution.get_command_class('easy_install')
+
+        cmd = easy_install(
+            self.distribution,
+            args="x",
+            root=self.root,
+            record=self.record,
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         )
         cmd.ensure_finalized()  # finalize before bdist_egg munges install cmd
         cmd.always_copy_from = '.'  # make sure local-dir eggs get installed
@@ -133,7 +190,13 @@ class install(orig.install):
 
 
 # XXX Python 3.1 doesn't see _nc if this is inside the class
+<<<<<<< HEAD
 install.sub_commands = (
     [cmd for cmd in orig.install.sub_commands if cmd[0] not in install._nc] +
     install.new_commands
 )
+=======
+install.sub_commands = [
+    cmd for cmd in orig.install.sub_commands if cmd[0] not in install._nc
+] + install.new_commands
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)

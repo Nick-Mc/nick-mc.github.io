@@ -1,6 +1,10 @@
 from distutils.util import convert_path
 from distutils import log
+<<<<<<< HEAD
 from distutils.errors import DistutilsError, DistutilsOptionError
+=======
+from distutils.errors import DistutilsOptionError
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 import os
 import glob
 import io
@@ -45,10 +49,13 @@ class develop(namespaces.DevelopInstaller, easy_install):
         import pkg_resources
 
         ei = self.get_finalized_command("egg_info")
+<<<<<<< HEAD
         if ei.broken_egg_info:
             template = "Please rename %r to %r before using 'develop'"
             args = ei.egg_info, ei.broken_egg_info
             raise DistutilsError(template % args)
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         self.args = [ei.egg_name]
 
         easy_install.finalize_options(self)
@@ -94,9 +101,13 @@ class develop(namespaces.DevelopInstaller, easy_install):
         path_to_setup = egg_base.replace(os.sep, '/').rstrip('/')
         if path_to_setup != os.curdir:
             path_to_setup = '../' * (path_to_setup.count('/') + 1)
+<<<<<<< HEAD
         resolved = _path.normpath(
             os.path.join(install_dir, egg_path, path_to_setup)
         )
+=======
+        resolved = _path.normpath(os.path.join(install_dir, egg_path, path_to_setup))
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         curdir = _path.normpath(os.curdir)
         if resolved != curdir:
             raise DistutilsOptionError(

@@ -111,7 +111,11 @@ def parse_tag(tag: str) -> FrozenSet[Tag]:
 
 
 def _get_config_var(name: str, warn: bool = False) -> Union[int, str, None]:
+<<<<<<< HEAD
     value = sysconfig.get_config_var(name)
+=======
+    value: Union[int, str, None] = sysconfig.get_config_var(name)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     if value is None and warn:
         logger.debug(
             "Config variable '%s' is unset, Python ABI tag may be incorrect", name
@@ -120,7 +124,11 @@ def _get_config_var(name: str, warn: bool = False) -> Union[int, str, None]:
 
 
 def _normalize_string(string: str) -> str:
+<<<<<<< HEAD
     return string.replace(".", "_").replace("-", "_")
+=======
+    return string.replace(".", "_").replace("-", "_").replace(" ", "_")
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 def _abi3_applies(python_version: PythonVersion) -> bool:

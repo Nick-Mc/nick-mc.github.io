@@ -23,7 +23,10 @@ import io
 import os
 import pathlib
 import sys
+<<<<<<< HEAD
 import warnings
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 from glob import iglob
 from configparser import ConfigParser
 from importlib.machinery import ModuleSpec
@@ -40,7 +43,11 @@ from typing import (
     Tuple,
     TypeVar,
     Union,
+<<<<<<< HEAD
     cast
+=======
+    cast,
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 )
 from pathlib import Path
 from types import ModuleType
@@ -48,6 +55,10 @@ from types import ModuleType
 from distutils.errors import DistutilsOptionError
 
 from .._path import same_path as _same_path
+<<<<<<< HEAD
+=======
+from ..warnings import SetuptoolsWarning
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 if TYPE_CHECKING:
     from setuptools.dist import Distribution  # noqa
@@ -101,14 +112,26 @@ def glob_relative(
     expanded_values = []
     root_dir = root_dir or os.getcwd()
     for value in patterns:
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         # Has globby characters?
         if any(char in value for char in glob_characters):
             # then expand the glob pattern while keeping paths *relative*:
             glob_path = os.path.abspath(os.path.join(root_dir, value))
+<<<<<<< HEAD
             expanded_values.extend(sorted(
                 os.path.relpath(path, root_dir).replace(os.sep, "/")
                 for path in iglob(glob_path, recursive=True)))
+=======
+            expanded_values.extend(
+                sorted(
+                    os.path.relpath(path, root_dir).replace(os.sep, "/")
+                    for path in iglob(glob_path, recursive=True)
+                )
+            )
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
         else:
             # take the value as-is
@@ -141,7 +164,11 @@ def _filter_existing_files(filepaths: Iterable[_Path]) -> Iterator[_Path]:
         if os.path.isfile(path):
             yield path
         else:
+<<<<<<< HEAD
             warnings.warn(f"File {path!r} cannot be found")
+=======
+            SetuptoolsWarning.emit(f"File {path!r} cannot be found")
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 
 
 def _read_file(filepath: Union[bytes, _Path]) -> str:
@@ -160,7 +187,11 @@ def _assert_local(filepath: _Path, root_dir: str):
 def read_attr(
     attr_desc: str,
     package_dir: Optional[Mapping[str, str]] = None,
+<<<<<<< HEAD
     root_dir: Optional[_Path] = None
+=======
+    root_dir: Optional[_Path] = None,
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 ):
     """Reads the value of an attribute from a module.
 
@@ -243,7 +274,11 @@ def _find_module(
     path_start = os.path.join(parent_path, *module_name.split("."))
     candidates = chain(
         (f"{path_start}.py", os.path.join(path_start, "__init__.py")),
+<<<<<<< HEAD
         iglob(f"{path_start}.*")
+=======
+        iglob(f"{path_start}.*"),
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
     )
     module_path = next((x for x in candidates if os.path.isfile(x)), None)
     return parent_path, module_path, module_name
@@ -252,7 +287,11 @@ def _find_module(
 def resolve_class(
     qualified_class_name: str,
     package_dir: Optional[Mapping[str, str]] = None,
+<<<<<<< HEAD
     root_dir: Optional[_Path] = None
+=======
+    root_dir: Optional[_Path] = None,
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 ) -> Callable:
     """Given a qualified class name, return the associated class object"""
     root_dir = root_dir or os.getcwd()
@@ -268,7 +307,11 @@ def resolve_class(
 def cmdclass(
     values: Dict[str, str],
     package_dir: Optional[Mapping[str, str]] = None,
+<<<<<<< HEAD
     root_dir: Optional[_Path] = None
+=======
+    root_dir: Optional[_Path] = None,
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 ) -> Dict[str, Callable]:
     """Given a dictionary mapping command names to strings for qualified class
     names, apply :func:`resolve_class` to the dict values.
@@ -281,7 +324,11 @@ def find_packages(
     namespaces=True,
     fill_package_dir: Optional[Dict[str, str]] = None,
     root_dir: Optional[_Path] = None,
+<<<<<<< HEAD
     **kwargs
+=======
+    **kwargs,
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
 ) -> List[str]:
     """Works similarly to :func:`setuptools.find_packages`, but with all
     arguments given as keyword arguments. Moreover, ``where`` can be given
@@ -322,8 +369,12 @@ def find_packages(
         pkgs = PackageFinder.find(package_path, **kwargs)
         packages.extend(pkgs)
         if pkgs and not (
+<<<<<<< HEAD
             fill_package_dir.get("") == path
             or os.path.samefile(package_path, root_dir)
+=======
+            fill_package_dir.get("") == path or os.path.samefile(package_path, root_dir)
+>>>>>>> 72864d1 (Tue 22 Aug 2023 02:44:06 PM CDT)
         ):
             fill_package_dir.update(construct_package_dir(pkgs, path))
 
